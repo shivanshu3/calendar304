@@ -1,8 +1,5 @@
 <?php
 
-printf("Dropping all tables...\n");
-// TODO
-
 // Host, username, password, database name
 $link = mysqli_connect("localhost", "calendar304", "calendar304",
     "calendar304");
@@ -11,6 +8,35 @@ $link = mysqli_connect("localhost", "calendar304", "calendar304",
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit(1);
+}
+
+printf("Dropping all tables...\n");
+
+// Queries to drop all tables.
+// Note that foreign key checking is disabled in the beginning and then
+// we turn it back on in the end:
+$drop_tables_queries = array(
+'SET FOREIGN_KEY_CHECKS = 0;',
+'DROP TABLE IF EXISTS Attends;',
+'DROP TABLE IF EXISTS Calendar;',
+'DROP TABLE IF EXISTS Contains;',
+'DROP TABLE IF EXISTS Event;',
+'DROP TABLE IF EXISTS Location;',
+'DROP TABLE IF EXISTS Reminder;',
+'DROP TABLE IF EXISTS Reminds;',
+'DROP TABLE IF EXISTS User;',
+'SET FOREIGN_KEY_CHECKS = 1;'
+);
+
+// Loop through all queries in $drop_tables_queries, and run them:
+$num_drop_queries = count($drop_tables_queries);
+for ($i = 0; $i < $num_drop_queries; $i++) {
+    if (mysqli_query($link, $drop_tables_queries[$i]) === TRUE) {
+        printf("Drop query %d successfully executed.\n", $i);
+    } else {
+        printf("Drop query %d could not be executed.\n", $i);
+        exit(1);
+    }
 }
 
 // This array will contain the MySQL queries for creating tables:
