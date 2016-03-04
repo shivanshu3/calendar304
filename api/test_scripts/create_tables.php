@@ -1,14 +1,11 @@
 <?php
 
-// Host, username, password, database name
-$link = mysqli_connect("localhost", "calendar304", "calendar304",
-    "calendar304");
+/**
+ * Drops all tables, and then recreates them.
+ * WARNING: All data in the tables will be deleted.
+ */
 
-// Check connection:
-if (mysqli_connect_errno()) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit(1);
-}
+require '../database_connection.php';
 
 printf("Dropping all tables...\n");
 
