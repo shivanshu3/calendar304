@@ -39,6 +39,25 @@ array_push($insert_queries,
     "('5', 'Jedi Training Schedule', '2')"
 );
 
+array_push($insert_queries,
+    "INSERT INTO `Location` (`RoomNo`, `MaxOcc`) VALUES".
+    "('1', '10'),".
+    "('2', '10'),".
+    "('3', '20'),".
+    "('4', '30'),".
+    "('5', '50')"
+);
+
+array_push($insert_queries,
+    "INSERT INTO `Event` (`Eid`, `Name`, `StartTime`, `Duration`, `RoomNo`) ".
+    "VALUES".
+    "('1', 'Sprint 1 Planning', '1462363200', '900', '1'),".
+    "('2', 'Sprint 1 Retrospective', '1463140800', '7200', '1'),".
+    "('3', 'Welcoming Party', '1463227200', '7200', '5'),".
+    "('4', 'Release Party', '1465905600', '7200', '5'),".
+    "('5', 'Interview with Idris Elba', '1462276800', '3600', '2')"
+);
+
 // Loop through all queries in $insert_queries, and run them:
 $num_insert_queries = count($insert_queries);
 for ($i = 0; $i < $num_insert_queries; $i++) {
