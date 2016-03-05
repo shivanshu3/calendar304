@@ -7,15 +7,6 @@
 
 require '../database_connection.php';
 
-// User
-// Calendar
-// Location
-// Event
-// Reminder
-// Contains
-// Attends
-// Reminds
-
 printf("Inserting data...\n");
 
 // This array will contain the MySQL queries for inserting data:

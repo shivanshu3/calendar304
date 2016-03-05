@@ -23,8 +23,9 @@ We're using Ubuntu for this project.
     - password: calendar304
 
   Leave everything else to default settings.
-- Run the create_tables.php script under /api/test_scripts to create the tables
-  for this app. You should now be able to see the tables in phpmyadmin.
+- Run the setup_database script under /api/test_scripts to create the tables
+  and populate them with some test data. You should now be able to see the
+  tables with test data in phpmyadmin.
 
 ## Code formatting
 - Max line limit is 80 characters
