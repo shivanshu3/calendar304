@@ -58,6 +58,16 @@ array_push($insert_queries,
     "('5', 'Interview with Idris Elba', '1462276800', '3600', '2')"
 );
 
+array_push($insert_queries,
+    "INSERT INTO `Reminder` (`Rid`, `Type`, `Time`, `Eid`) ".
+    "VALUES".
+    "('125', '0', '1462363200', '1'),".
+    "('126', '0', '1463140600', '2'),".
+    "('127', '1', '1463130000', '2'),".
+    "('131', '1', '1462000000', '2'),".
+    "('172', '0', '1463227000', '3')"
+);
+
 // Loop through all queries in $insert_queries, and run them:
 $num_insert_queries = count($insert_queries);
 for ($i = 0; $i < $num_insert_queries; $i++) {
