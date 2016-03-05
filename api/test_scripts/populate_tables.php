@@ -68,6 +68,36 @@ array_push($insert_queries,
     "('172', '0', '1463227000', '3')"
 );
 
+array_push($insert_queries,
+    "INSERT INTO `Contains` (`Cid`, `Eid`) ".
+    "VALUES".
+    "('1', '1'),".
+    "('1', '2'),".
+    "('2', '3'),".
+    "('3', '3'),".
+    "('5', '5')"
+);
+
+array_push($insert_queries,
+    "INSERT INTO `Attends` (`Uid`, `Eid`) ".
+    "VALUES".
+    "('3', '5'),".
+    "('5', '3'),".
+    "('4', '2'),".
+    "('1', '1'),".
+    "('2', '4')"
+);
+
+array_push($insert_queries,
+    "INSERT INTO `Reminds` (`Rid`, `Uid`) ".
+    "VALUES".
+    "('125', '3'),".
+    "('126', '5'),".
+    "('127', '4'),".
+    "('131', '1'),".
+    "('172', '2')"
+);
+
 // Loop through all queries in $insert_queries, and run them:
 $num_insert_queries = count($insert_queries);
 for ($i = 0; $i < $num_insert_queries; $i++) {
