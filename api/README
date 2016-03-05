@@ -5,15 +5,19 @@
 user_create - Make a new user account
 user_edit - Change name of user
 user_delete - Delete a user account
+user_details - Get user details given a user
 calendar_create - Make a new calendar for a user
 calendar_edit - Change name of a calendar
 calendar_delete - Delete a calendar
+calendar_details - Get calendar details given a calendar
 event_create - Create a new event
 event_edit - Edit details of an event
 event_delete - Delete an event
+event_details - Get event details given an event
 event_share - Share an event with another user
 event_users - Given an event, find all users which have it in their calendars
 reminder_create - Create a reminder
 reminder_edit - Change reminder details
 reminder_delete - Delete reminder
+reminder_details - Get reminder details given an event
 events_list - Get a list of events for any given day
