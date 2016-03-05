@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# This script creates tables (deletes any first if they already exist),
+# and then populates them with some test data.
+# The database must already exist when this script is run!
+
+php ./create_tables.php && php ./populate_tables.php
