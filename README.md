@@ -12,6 +12,7 @@ We're using Ubuntu for this project.
 - Install Apache
 - Install phpmyadmin (optional, for easily looking at the database, and to test
   SQL queries)
+- Install mysqlnd extension: sudo apt-get install php5-mysqlnd
 
 ## Setup instructions
 - Open phpmyadmin and log in
