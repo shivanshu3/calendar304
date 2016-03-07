@@ -8,7 +8,25 @@ Given an event id, it returns the following object:
     name:
     start_time: // seconds since epoch
     duration: // seconds
-    room_no:
+    location: {
+        room_no:
+        max_occ:
+    }
+    users: [
+        {
+            id:
+            name:
+        },
+        ...
+    ]
+    reminders: [
+        {
+            id:
+            type:
+            time: // seconds since epoch
+        },
+        ...
+    ]
 }
 
 The returned object will be empty - with no keys if an event with the
