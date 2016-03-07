@@ -24,7 +24,6 @@ given id does not exist.
 require 'database_connection.php';
 
 $user_id = $_GET['id'];
-printf("The mame ia %d\n", $user_id);
 
 // This will store the final result
 $json_result = array();
@@ -81,6 +80,7 @@ for ($i = 0; $i < $num_rows; $i++) {
 $json_result['calendars'] = $calendars;
 
 $json_result = json_encode($json_result);
+header('Content-Type: application/json');
 echo $json_result;
 
 ?>
