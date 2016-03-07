@@ -40,7 +40,7 @@ if ($result === FALSE) {
     printf("query could not be executed.\n");
     exit(1);
 } else {
-    printf("query successfully executed.\n");
+    // printf("query successfully executed.\n");
 }
 
 $all_rows = $result->fetch_all();
@@ -54,31 +54,33 @@ if (count($all_rows) == 0) {
 $json_result['id'] = $user_id;
 $json_result['name'] = $all_rows[0][0];
 
-echo json_encode($json_result);
-exit(0);
-
+// Get the calendars of a user:
 $query = '
-SELECT DISTINCT User.Name, Calendar.Cid, Calendar.Name
-FROM Calendar, User
-WHERE User.Uid = Calendar.Uid AND Calendar.Uid = 4
-';
+SELECT DISTINCT Calendar.Cid, Calendar.Name
+FROM Calendar
+WHERE Calendar.Uid = '.$user_id;
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
     printf("query could not be executed.\n");
     exit(1);
 } else {
-    printf("query successfully executed.\n");
+    // printf("query successfully executed.\n");
 }
 
 $all_rows = $result->fetch_all();
 
-$json_result['id'] = $user_id;
-$json_result['name'] = $user_id;
+$calendars = array();
+$num_rows = count($all_rows);
+for ($i = 0; $i < $num_rows; $i++) {
+    $calendar = array();
+    $calendar['id'] = $all_rows[$i][0];
+    $calendar['name'] = $all_rows[$i][1];
+    array_push($calendars, $calendar);
+}
+$json_result['calendars'] = $calendars;
 
-print_r($all_rows);
-//var_dump($all_rows);
-
-echo $all_rows[0][0];
+$json_result = json_encode($json_result);
+echo $json_result;
 
 ?>
