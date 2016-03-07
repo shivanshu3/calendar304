@@ -22,8 +22,9 @@ given id does not exist.
 */
 
 require 'database_connection.php';
+require 'utility.php';
 
-$user_id = $_GET['id'];
+$id = $_GET['id'];
 
 // This will store the final result
 $json_result = array();
@@ -32,7 +33,7 @@ $json_result = array();
 $query = '
 SELECT DISTINCT User.Name
 FROM User
-WHERE User.Uid = '.$user_id;
+WHERE User.Uid = '.$id;
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
@@ -46,18 +47,18 @@ $all_rows = $result->fetch_all();
 
 // User does not exist?
 if (count($all_rows) == 0) {
-    echo json_encode($json_result);
+    output_json($json_result);
     exit(0);
 }
 
-$json_result['id'] = $user_id;
+$json_result['id'] = $id;
 $json_result['name'] = $all_rows[0][0];
 
 // Get the calendars of a user:
 $query = '
 SELECT DISTINCT Calendar.Cid, Calendar.Name
 FROM Calendar
-WHERE Calendar.Uid = '.$user_id;
+WHERE Calendar.Uid = '.$id;
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
@@ -79,8 +80,6 @@ for ($i = 0; $i < $num_rows; $i++) {
 }
 $json_result['calendars'] = $calendars;
 
-$json_result = json_encode($json_result);
-header('Content-Type: application/json');
-echo $json_result;
+output_json($json_result);
 
 ?>
