@@ -70,12 +70,12 @@ $json_result['start_time'] = $all_rows[0][1];
 $json_result['duration'] = $all_rows[0][2];
 
 // Get the max occupants of the location:
-$id = $all_rows[0][3];
+$location_id = $all_rows[0][3];
 
 $query = '
 SELECT MaxOcc
 FROM Location
-WHERE RoomNo = '.$id;
+WHERE RoomNo = '.$location_id;
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
@@ -87,10 +87,36 @@ if ($result === FALSE) {
 
 $all_rows = $result->fetch_all();
 
-// Constinuing the json object construction for location:
+// Continuing the json object construction for location:
 $json_result['location'] = array();
-$json_result['location']['room_no'] = $id;
+$json_result['location']['room_no'] = $location_id;
 $json_result['location']['max_occ'] = $all_rows[0][0];
+
+// Find the users attending this event:
+$query = '
+SELECT User.Uid, User.Name
+FROM User, Attends
+WHERE User.Uid = Attends.Uid AND Attends.Eid = '.$id;
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+} else {
+    // printf("query successfully executed.\n");
+}
+
+$all_rows = $result->fetch_all();
+
+$users = array();
+$num_rows = count($all_rows);
+for ($i = 0; $i < $num_rows; $i++) {
+    $user = array();
+    $user['id'] = $all_rows[$i][0];
+    $user['name'] = $all_rows[$i][1];
+    array_push($users, $user);
+}
+$json_result['users'] = $users;
 
 output_json($json_result);
 
