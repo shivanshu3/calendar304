@@ -118,6 +118,33 @@ for ($i = 0; $i < $num_rows; $i++) {
 }
 $json_result['users'] = $users;
 
+// Find the reminders for this event:
+$query = '
+SELECT Rid, Type, Time
+FROM Reminder
+WHERE Eid = '.$id;
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+} else {
+    // printf("query successfully executed.\n");
+}
+
+$all_rows = $result->fetch_all();
+
+$reminders = array();
+$num_reminders = count($all_rows);
+for ($i = 0; $i < $num_reminders; $i++) {
+    $reminder = array();
+    $reminder['id'] = $all_rows[$i][0];
+    $reminder['type'] = $all_rows[$i][1];
+    $reminder['time'] = $all_rows[$i][2];
+    array_push($reminders, $reminder);
+}
+$json_result['reminders'] = $reminders;
+
 output_json($json_result);
 
 ?>
