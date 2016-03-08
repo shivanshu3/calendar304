@@ -7,6 +7,8 @@
  * Note: This script ignores the duration of events. For example, if an event
  * is so long that it continues till the next day, and that next day is
  * passed to this script, then that event will not be returned.
+ *
+ * It returns an array of event IDs.
  */
 
 require 'database_connection.php';
@@ -82,11 +84,9 @@ $all_rows = $result->fetch_all();
 $events = array();
 $num_events = count($all_rows);
 for ($i = 0; $i < $num_events; $i++) {
-    $event = array();
-    $event['id'] = $all_rows[$i][0];
-    array_push($events, $event);
+    array_push($events, $all_rows[$i][0]);
 }
-$json_result['events'] = $events;
+$json_result = $events;
 
 output_json($json_result);
 
