@@ -68,7 +68,29 @@ $json_result['id'] = $id;
 $json_result['name'] = $all_rows[0][0];
 $json_result['start_time'] = $all_rows[0][1];
 $json_result['duration'] = $all_rows[0][2];
-$json_result['room_no'] = $all_rows[0][3];
+
+// Get the max occupants of the location:
+$id = $all_rows[0][3];
+
+$query = '
+SELECT MaxOcc
+FROM Location
+WHERE RoomNo = '.$id;
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+} else {
+    // printf("query successfully executed.\n");
+}
+
+$all_rows = $result->fetch_all();
+
+// Constinuing the json object construction for location:
+$json_result['location'] = array();
+$json_result['location']['room_no'] = $id;
+$json_result['location']['max_occ'] = $all_rows[0][0];
 
 output_json($json_result);
 
