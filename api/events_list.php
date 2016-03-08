@@ -4,7 +4,13 @@
  * Get all events scheduled on a particular date.
  * The date is given as year, month, date.
  * Note: Month is specified as a number, where 1 corresponds to Jan.
+ * Note: This script ignores the duration of events. For example, if an event
+ * is so long that it continues till the next day, and that next day is
+ * passed to this script, then that event will not be returned.
  */
+
+require 'database_connection.php';
+require 'utility.php';
 
 $year = $_GET['year'];
 $month = $_GET['month'];
@@ -57,8 +63,31 @@ switch ($month) {
 $epoch_start = strtotime("$date $month $year");
 $epoch_end = $epoch_start + 24 * 60 * 60 - 1;
 
-echo "Start: $epoch_start\n";
-echo "Start: $epoch_end\n";
+// Find the events:
+$query = "
+SELECT Event.Eid
+FROM Event
+WHERE Event.StartTime > $epoch_start AND Event.StartTime < $epoch_end";
 
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+} else {
+    // printf("query successfully executed.\n");
+}
+
+$all_rows = $result->fetch_all();
+
+$events = array();
+$num_events = count($all_rows);
+for ($i = 0; $i < $num_events; $i++) {
+    $event = array();
+    $event['id'] = $all_rows[$i][0];
+    array_push($events, $event);
+}
+$json_result['events'] = $events;
+
+output_json($json_result);
 
 ?>
