@@ -26,7 +26,6 @@ UIManager.getInstance = function() {
  */
 UIManager.prototype.init = function() {
     var _this = this;
-    console.log("Initializing!");
 
     // Register a callback for when the hash changes:
     $(window).on('hashchange', function() {
@@ -140,8 +139,6 @@ UIManager.prototype.refreshView = function(month, year) {
             counter++;
         }
     }
-
-    console.log(dayOnFirst);
 };
 
 /**
