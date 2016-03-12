@@ -33,6 +33,8 @@ Utility.monthStringToNum = function(month) {
             return 11;
         case "dec":
             return 12;
+        default:
+            return NaN;
     }
 };
 
@@ -53,4 +55,47 @@ Utility.isLeapYear = function(year) {
         return true;
     }
     return false;
+};
+
+/**
+ * Given a month and a year, it returns the number of days in that month.
+ * The month given must be a number [1-12]
+ */
+Utility.numDaysInMonth = function(month, year) {
+    // Do the simple cases first - exclude february
+    switch (month) {
+        case 1:
+            return 31;
+        case 2:
+            break;
+        case 3:
+            return 31;
+        case 4:
+            return 30;
+        case 5:
+            return 31;
+        case 6:
+            return 30;
+        case 7:
+            return 31;
+        case 8:
+            return 31;
+        case 9:
+            return 30;
+        case 10:
+            return 31;
+        case 11:
+            return 30;
+        case 12:
+            return 31;
+        default:
+            return NaN;
+    }
+
+    // If we reach here, then it means the month is february.
+    if (Utility.isLeapYear(year)) {
+        return 29;
+    } else {
+        return 28;
+    }
 };
