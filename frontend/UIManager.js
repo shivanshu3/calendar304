@@ -36,5 +36,19 @@ UIManager.prototype.init = function() {
  * The argument passed to this function is the new hash.
  */
 UIManager.prototype.hashChanged = function(hash) {
-    console.log("New Hash: " + hash);
+    month = hash.split('-')[0];
+    year = hash.split('-')[1];
+
+    // convert month to a number:
+    month = Utility.monthStringToNum(month);
+
+    this.refreshView(month, year);
+};
+
+/**
+ * Given the month and year, it refreshes the calendar view.
+ * The month argument is supposed to be a number. January corresponds to 1.
+ */
+UIManager.prototype.refreshView = function(month, year) {
+    console.log('Month: ' + month + ' year:' + year);
 };
