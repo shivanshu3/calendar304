@@ -55,12 +55,14 @@ UIManager.prototype.initMonthYearInput = function() {
     var monthBox = $('#month_select');
     var yearBox = $('#year_select');
 
+    var _this = this;
+
     monthBox.change(function() {
-        window.location.hash = monthBox.val() + "-" + year;
+        window.location.hash = monthBox.val() + "-" + _this.year;
     });
 
     yearBox.change(function() {
-        window.location.hash = Utility.monthNumToString(month) + "-" +
+        window.location.hash = Utility.monthNumToString(_this.month) + "-" +
             yearBox.val();
     });
 };
