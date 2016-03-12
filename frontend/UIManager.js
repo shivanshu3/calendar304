@@ -70,6 +70,8 @@ UIManager.prototype.refreshView = function(month, year) {
     var counter = 0 - dayOnFirst + 2;
     var numDays = Utility.numDaysInMonth(month, year);
 
+    var _this = this;
+
     // Print dates on the calendar:
     for (var i = 0; i < 6; i++) {
         var row = calRows[i];
@@ -77,14 +79,28 @@ UIManager.prototype.refreshView = function(month, year) {
         for (var j = 0; j < 7; j++) {
             if (counter <= 0) {
                 dates[j].innerHTML = '';
+                $(dates[j]).css('cursor', 'auto');
             } else if (counter <= numDays) {
                 dates[j].innerHTML = counter;
+                $(dates[j]).css('cursor', 'pointer');
+                $(dates[j]).click(function() {
+                    _this.dateClicked(counter);
+                });
             } else {
                 dates[j].innerHTML = '';
+                $(dates[j]).css('cursor', 'auto');
             }
             counter++;
         }
     }
 
     console.log(dayOnFirst);
+};
+
+/**
+ * This function is called when a date is clicked.
+ * The date clicked is passed to this function.
+ */
+UIManager.prototype.dateClicked = function(date) {
+    console.log("date clicked: " + date);
 };
