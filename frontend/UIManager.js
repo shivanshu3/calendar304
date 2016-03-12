@@ -75,9 +75,16 @@ UIManager.prototype.hashChanged = function(hash) {
     year = hash.split('-')[1];
 
     // convert month to a number:
-    month = Utility.monthStringToNum(month);
+    monthNum = Utility.monthStringToNum(month);
 
-    this.refreshView(month, year);
+    // update the month and year select text boxes
+    // this does not trigger their 'change' callbacks
+    var monthBox = $('#month_select');
+    var yearBox = $('#year_select');
+    monthBox.val(month);
+    yearBox.val(year);
+
+    this.refreshView(monthNum, year);
 };
 
 /**
