@@ -4,6 +4,9 @@
  */
 
 var UIManager = function() {
+    // Instance variables:
+    this.month = NaN;
+    this.year = NaN;
 };
 
 UIManager.singletonInstance = null;
@@ -50,6 +53,10 @@ UIManager.prototype.hashChanged = function(hash) {
  * The month argument is supposed to be a number. January corresponds to 1.
  */
 UIManager.prototype.refreshView = function(month, year) {
+    // update this instance:
+    this.month = Number(month);
+    this.year = Number(year);
+
     // The day of week on the first of this month:
     var dayOnFirst = new Date(year, month-1, 1).getDay();
     // Make sunday = 7, monday = 1
