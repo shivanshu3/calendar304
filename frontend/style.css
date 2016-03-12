@@ -12,6 +12,10 @@ table {
     height: 400px;
 }
 
+h1 {
+    margin-bottom: 10px;
+}
+
 #month_year_select_div {
     padding-bottom: 10px;
 }
