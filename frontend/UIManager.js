@@ -115,11 +115,16 @@ UIManager.prototype.refreshView = function(month, year) {
                 $(dates[j]).css('cursor', 'auto');
             } else if (counter <= numDays) {
                 dates[j].innerHTML = counter;
-                var date$ = $(dates[j]);
-                date$.css('cursor', 'pointer');
-                date$.click(function() {
-                    _this.dateClicked(counter);
-                });
+                $(dates[j]).css('cursor', 'pointer');
+                // Click callback registration is done inside an anonymous
+                // function because we want the date$ to be in the closure.
+                // Dark side of javascript :/
+                (function() {
+                    var date$ = $(dates[j]);
+                    date$.click(function() {
+                        _this.dateClicked(date$);
+                    });
+                })();
             } else {
                 dates[j].innerHTML = '';
                 $(dates[j]).css('cursor', 'auto');
