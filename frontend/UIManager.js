@@ -50,5 +50,10 @@ UIManager.prototype.hashChanged = function(hash) {
  * The month argument is supposed to be a number. January corresponds to 1.
  */
 UIManager.prototype.refreshView = function(month, year) {
-    console.log('Month: ' + month + ' year:' + year);
+    // The day of week on the first of this month:
+    dayOnFirst = new Date(year, month-1, 1).getDay();
+    // Make sunday = 7, monday = 1
+    dayOnFirst = (dayOnFirst == 0) ? 7 : dayOnFirst;
+
+    console.log(dayOnFirst);
 };
