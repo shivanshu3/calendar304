@@ -32,6 +32,13 @@ UIManager.prototype.init = function() {
     $(window).on('hashchange', function() {
         _this.hashChanged(location.hash.slice(1));
     });
+
+    time = new Date();
+    month = time.getMonth() + 1; // [1-12]
+    year = time.getFullYear();
+
+    // This should automatically trigger a calendar refresh:
+    window.location.hash = Utility.monthNumToString(month) + "-" + year;
 };
 
 /**
