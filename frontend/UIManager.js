@@ -109,13 +109,15 @@ UIManager.prototype.refreshView = function(month, year) {
         var row = calRows[i];
         var dates = $(row).find('td');
         for (var j = 0; j < 7; j++) {
+            $(dates[j]).unbind('click');
             if (counter <= 0) {
                 dates[j].innerHTML = '';
                 $(dates[j]).css('cursor', 'auto');
             } else if (counter <= numDays) {
                 dates[j].innerHTML = counter;
-                $(dates[j]).css('cursor', 'pointer');
-                $(dates[j]).click(function() {
+                var date$ = $(dates[j]);
+                date$.css('cursor', 'pointer');
+                date$.click(function() {
                     _this.dateClicked(counter);
                 });
             } else {
