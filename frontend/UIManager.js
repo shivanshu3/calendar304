@@ -55,5 +55,28 @@ UIManager.prototype.refreshView = function(month, year) {
     // Make sunday = 7, monday = 1
     dayOnFirst = (dayOnFirst == 0) ? 7 : dayOnFirst;
 
+    calendarTable = $('#calendar_table');
+    calRows = calendarTable.find("tr");
+    calRows = calRows.toArray(); // jQuery array to normal array
+    calRows.shift(); // Remove the first row because it contains days
+
+    counter = 0 - dayOnFirst + 2;
+
+    // Print dates on the calendar:
+    for (var i = 0; i < 6; i++) {
+        var row = calRows[i];
+        var dates = $(row).find('td');
+        for (var j = 0; j < 7; j++) {
+            if (counter <= 0) {
+                dates[j].innerHTML = '';
+            } else if (counter <= 31) {
+                dates[j].innerHTML = counter;
+            } else {
+                dates[j].innerHTML = '';
+            }
+            counter++;
+        }
+    }
+
     console.log(dayOnFirst);
 };

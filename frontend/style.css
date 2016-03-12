@@ -6,6 +6,10 @@ td {
     width: 14%;
 }
 
+tr {
+    height: 14%;
+}
+
 table {
     border-collapse: collapse;
     width: 1000px;
