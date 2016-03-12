@@ -44,6 +44,26 @@ UIManager.prototype.init = function() {
     } else {
         this.hashChanged(location.hash.slice(1));
     }
+
+    // Initialize the month and year input boxes:
+    this.initMonthYearInput();
+};
+
+/**
+ * Initializes the month, year input boxes.
+ */
+UIManager.prototype.initMonthYearInput = function() {
+    var monthBox = $('#month_select');
+    var yearBox = $('#year_select');
+
+    monthBox.change(function() {
+        window.location.hash = monthBox.val() + "-" + year;
+    });
+
+    yearBox.change(function() {
+        window.location.hash = Utility.monthNumToString(month) + "-" +
+            yearBox.val();
+    });
 };
 
 /**
