@@ -37,8 +37,13 @@ UIManager.prototype.init = function() {
     month = time.getMonth() + 1; // [1-12]
     year = time.getFullYear();
 
-    // This should automatically trigger a calendar refresh:
-    window.location.hash = Utility.monthNumToString(month) + "-" + year;
+    // Create a window hash if it doesn't exist already.
+    if (window.location.hash == '') {
+        // This should automatically trigger a calendar refresh:
+        window.location.hash = Utility.monthNumToString(month) + "-" + year;
+    } else {
+        this.hashChanged(location.hash.slice(1));
+    }
 };
 
 /**
