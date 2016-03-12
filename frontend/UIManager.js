@@ -32,9 +32,9 @@ UIManager.prototype.init = function() {
         _this.hashChanged(location.hash.slice(1));
     });
 
-    time = new Date();
-    month = time.getMonth() + 1; // [1-12]
-    year = time.getFullYear();
+    var time = new Date();
+    var month = time.getMonth() + 1; // [1-12]
+    var year = time.getFullYear();
 
     // Create a window hash if it doesn't exist already.
     if (window.location.hash == '') {
