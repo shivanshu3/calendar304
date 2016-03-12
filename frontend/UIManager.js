@@ -122,7 +122,8 @@ UIManager.prototype.refreshView = function(month, year) {
                 (function() {
                     var date$ = $(dates[j]);
                     date$.click(function() {
-                        _this.dateClicked(date$);
+                        var dateNumber = Number(date$[0].innerHTML)
+                        _this.dateClicked(dateNumber);
                     });
                 })();
             } else {
