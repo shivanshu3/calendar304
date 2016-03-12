@@ -35,3 +35,22 @@ Utility.monthStringToNum = function(month) {
             return 12;
     }
 };
+
+/**
+ * - If a year is divisible by 100 BUT it is not divisible by 400, it is
+ *   not a leap year.
+ * - If a year is divisible by 400 it is a leap year.
+ * - If a year is divisible by 4, it is a leap year.
+ */
+Utility.isLeapYear = function(year) {
+    if ((year % 100 == 0) && (year % 400 != 0)) {
+        return false;
+    }
+    if (year % 400 == 0) {
+        return true;
+    }
+    if (year % 4 == 0) {
+        return true;
+    }
+    return false;
+};
