@@ -51,16 +51,17 @@ UIManager.prototype.hashChanged = function(hash) {
  */
 UIManager.prototype.refreshView = function(month, year) {
     // The day of week on the first of this month:
-    dayOnFirst = new Date(year, month-1, 1).getDay();
+    var dayOnFirst = new Date(year, month-1, 1).getDay();
     // Make sunday = 7, monday = 1
     dayOnFirst = (dayOnFirst == 0) ? 7 : dayOnFirst;
 
-    calendarTable = $('#calendar_table');
-    calRows = calendarTable.find("tr");
+    var calendarTable = $('#calendar_table');
+    var calRows = calendarTable.find("tr");
     calRows = calRows.toArray(); // jQuery array to normal array
     calRows.shift(); // Remove the first row because it contains days
 
-    counter = 0 - dayOnFirst + 2;
+    var counter = 0 - dayOnFirst + 2;
+    var numDays = Utility.numDaysInMonth(month, year);
 
     // Print dates on the calendar:
     for (var i = 0; i < 6; i++) {
@@ -69,7 +70,7 @@ UIManager.prototype.refreshView = function(month, year) {
         for (var j = 0; j < 7; j++) {
             if (counter <= 0) {
                 dates[j].innerHTML = '';
-            } else if (counter <= 31) {
+            } else if (counter <= numDays) {
                 dates[j].innerHTML = counter;
             } else {
                 dates[j].innerHTML = '';
