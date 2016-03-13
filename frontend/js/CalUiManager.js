@@ -34,6 +34,7 @@ CalUiManager.prototype.init = function() {
         Utility.redirectSignIn();
         return;
     }
+    this.user_id = Number(window.localStorage.user_id);
 
     // If the user has not chosen a calendar, take them back to the
     // calendars page:
@@ -41,15 +42,6 @@ CalUiManager.prototype.init = function() {
         Utility.redirectCalendars(true);
         return;
     }
-
-    var user_id = window.localStorage.user_id;
-    if ((user_id == "") || (user_id == null) || (isNaN(user_id)) ||
-            (isNaN(Number(user_id)))) {
-        alert('You need to sign in.');
-        window.location.href = './index.html';
-        return;
-    }
-    this.user_id = Number(user_id);
 
     // Register a callback for when the hash changes:
     $(window).on('hashchange', function() {
