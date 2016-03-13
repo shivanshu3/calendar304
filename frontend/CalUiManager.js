@@ -7,6 +7,7 @@ var CalUiManager = function() {
     // Instance variables:
     this.month = NaN;
     this.year = NaN;
+    this.user_id = NaN;
 };
 
 CalUiManager.singletonInstance = null;
@@ -26,6 +27,17 @@ CalUiManager.getInstance = function() {
  */
 CalUiManager.prototype.init = function() {
     var _this = this;
+
+    // If the user is not signed in, take them back to the
+    // sign in/ sign up page:
+    var user_id = window.localStorage.user_id;
+    if ((user_id == "") || (user_id == null) || (isNaN(user_id)) ||
+            (isNaN(Number(user_id)))) {
+        alert('You need to sign in.');
+        window.location.href = './index.html';
+        return;
+    }
+    this.user_id = Number(user_id);
 
     // Register a callback for when the hash changes:
     $(window).on('hashchange', function() {
