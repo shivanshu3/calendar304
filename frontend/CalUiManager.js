@@ -1,30 +1,30 @@
 /**
- * UIManager is a singleton class which initializes the app.
+ * CalUiManager is a singleton class which initializes the app.
  * It is a singleton class.
  */
 
-var UIManager = function() {
+var CalUiManager = function() {
     // Instance variables:
     this.month = NaN;
     this.year = NaN;
 };
 
-UIManager.singletonInstance = null;
+CalUiManager.singletonInstance = null;
 
 /**
  * Returns the singleton instance of this class.
  */
-UIManager.getInstance = function() {
-    if (UIManager.singletonInstance == null) {
-        UIManager.singletonInstance = new UIManager();
+CalUiManager.getInstance = function() {
+    if (CalUiManager.singletonInstance == null) {
+        CalUiManager.singletonInstance = new CalUiManager();
     }
-    return UIManager.singletonInstance;
+    return CalUiManager.singletonInstance;
 };
 
 /**
  * Runs when the app loads.
  */
-UIManager.prototype.init = function() {
+CalUiManager.prototype.init = function() {
     var _this = this;
 
     // Register a callback for when the hash changes:
@@ -51,7 +51,7 @@ UIManager.prototype.init = function() {
 /**
  * Initializes the month, year input boxes.
  */
-UIManager.prototype.initMonthYearInput = function() {
+CalUiManager.prototype.initMonthYearInput = function() {
     var monthBox = $('#month_select');
     var yearBox = $('#year_select');
 
@@ -71,7 +71,7 @@ UIManager.prototype.initMonthYearInput = function() {
  * Runs when the hash changes.
  * The argument passed to this function is the new hash.
  */
-UIManager.prototype.hashChanged = function(hash) {
+CalUiManager.prototype.hashChanged = function(hash) {
     month = hash.split('-')[0];
     year = hash.split('-')[1];
 
@@ -92,7 +92,7 @@ UIManager.prototype.hashChanged = function(hash) {
  * Given the month and year, it refreshes the calendar view.
  * The month argument is supposed to be a number. January corresponds to 1.
  */
-UIManager.prototype.refreshView = function(month, year) {
+CalUiManager.prototype.refreshView = function(month, year) {
     // update this instance:
     this.month = Number(month);
     this.year = Number(year);
@@ -147,6 +147,6 @@ UIManager.prototype.refreshView = function(month, year) {
  * This function is called when a date is clicked.
  * The date clicked is passed to this function.
  */
-UIManager.prototype.dateClicked = function(date) {
+CalUiManager.prototype.dateClicked = function(date) {
     console.log("date clicked: " + date);
 };
