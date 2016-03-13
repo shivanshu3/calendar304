@@ -1,12 +1,17 @@
 <?php
 
 /**
- * Get all events scheduled on a particular date.
+ * Get all events scheduled on a particular date for the given user.
  * The date is given as year, month, date.
  * Note: Month is specified as a number, where 1 corresponds to Jan.
  * Note: This script ignores the duration of events. For example, if an event
  * is so long that it continues till the next day, and that next day is
  * passed to this script, then that event will not be returned.
+ *
+ * It also needs the user's timezone offset. This is because an event
+ * scheduled at some time might fall on different days for different users
+ * depending on their timezone.
+ * The offset needed is: (UTC time - User's local time) in minutes.
  *
  * It returns an array of event IDs.
  */
