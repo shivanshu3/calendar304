@@ -83,7 +83,7 @@ CalsUiManager.prototype.showUserCalendars = function() {
         // function because we want the calendar id to be stored in this
         // function's closure.
         (function() {
-            var cal_id = i;
+            var cal_id = calendar.id;
             calendarBullet.click(function() {
                 _this.calendarClicked(cal_id);
             });
