@@ -64,7 +64,7 @@ CalsUiManager.prototype.createCalendarClicked = function() {
 };
 
 /**
- * Populates the user's calendars on the page.
+ * Populates the user's calendars in this instance.
  */
 CalsUiManager.prototype.populateUserCalendars = function() {
     var _this = this;
