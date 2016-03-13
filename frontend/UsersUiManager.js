@@ -77,7 +77,7 @@ UsersUiManager.prototype.signUpButtonClicked = function() {
             alert('Sign Up Failed!');
         } else {
             // Store the user id in local storage and open up the calendar:
-            window.localStorage.user_id = id;
+            window.localStorage.user_id = data.id;
             window.location.href = './calendar.html';
         }
     });
