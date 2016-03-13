@@ -67,5 +67,22 @@ UsersUiManager.prototype.signInButtonClicked = function() {
  * Runs when sign up button is clicked.
  */
 UsersUiManager.prototype.signUpButtonClicked = function() {
-    console.log('sign up');
+    var textbox = $('#sign_up_box input');
+    var user_name = textbox.val();
+
+    var signUpRequest = $.get('../api/user_create.php', {name: user_name});
+
+    signUpRequest.done(function(data) {
+        if (data.id == undefined) {
+            alert('Sign Up Failed!');
+        } else {
+            // Store the user id in local storage and open up the calendar:
+            window.localStorage.user_id = id;
+            window.location.href = './calendar.html';
+        }
+    });
+
+    signUpRequest.fail(function(data) {
+        alert('Sign Up Failed!');
+    });
 };
