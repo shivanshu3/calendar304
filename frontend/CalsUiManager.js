@@ -96,5 +96,8 @@ CalsUiManager.prototype.showUserCalendars = function() {
  * Runs when a calendar item is clicked.
  */
 CalsUiManager.prototype.calendarClicked = function(cal_id) {
-    console.log(cal_id);
+    // Store the calendar id in local storage and redirect to the
+    // calendar page:
+    window.localStorage.user_calendar = cal_id;
+    Utility.redirectCalendar();
 };

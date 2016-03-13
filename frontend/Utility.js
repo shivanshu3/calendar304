@@ -176,3 +176,10 @@ Utility.redirectCalendars = function(showMessage) {
     }
     window.location.href = '/calendar304/frontend/calendars.html';
 };
+
+/**
+ * Redirects to the calendar page.
+ */
+Utility.redirectCalendar = function() {
+    window.location.href = '/calendar304/frontend/calendar.html';
+};
