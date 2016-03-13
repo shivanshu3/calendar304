@@ -17,6 +17,9 @@ require 'utility.php';
 $year = $_GET['year'];
 $month = $_GET['month'];
 $date = $_GET['date'];
+$timezone_offset_minutes = $_GET['timezone_offset_minutes'];
+
+$timezone_offset_seconds = $timezone_offset_minutes * 60;
 
 date_default_timezone_set('UTC');
 
@@ -64,6 +67,10 @@ switch ($month) {
 // These mark the start and end of the given day:
 $epoch_start = strtotime("$date $month $year");
 $epoch_end = $epoch_start + 24 * 60 * 60 - 1;
+
+// Adjust the time values to take into account the timezone offset:
+$epoch_start -= $timezone_offset_seconds;
+$epoch_end -= $timezone_offset_seconds;
 
 // Find the events:
 $query = "
