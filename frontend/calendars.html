@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Calendar 304</title>
+        <link rel="stylesheet" type="text/css" href="calendars_style.css">
+        <script type="text/javascript" src="./Utility.js"></script>
+        <script type="text/javascript" src="./CalsUiManager.js"></script>
+        <script type="text/javascript" src="./jquery-2.2.1.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                var uiManager = CalsUiManager.getInstance();
+                uiManager.init();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="main_app_div">
+            <h1>Calendar 304</h1>
+            <div id="existing_calendars_div">
+                <h2>Your Calendars:</h2>
+                <ul>
+                    <li>Foo</li>
+                    <li>Bar</li>
+                </ul>
+            </div>
+            <div id="create_calendar_div">
+                <h2>Create Calendar:</h2>
+                Name: <input type="text">
+                <button type="button">Create</button>
+            </div>
+        </div> <!-- main_app_div  -->
+    </body>
+</html>
