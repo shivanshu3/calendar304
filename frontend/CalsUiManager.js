@@ -46,6 +46,21 @@ CalsUiManager.prototype.init = function() {
  */
 CalsUiManager.prototype.createCalendarClicked = function() {
     console.log('button clicked.');
+    var _this = this;
+    var calName = $('#create_calendar_div input').val();
+
+    var createCalendarRequest = $.get('../api/calendar_create.php', {
+        name: calName,
+        user_id: window.localStorage.user_id
+    });
+
+    createCalendarRequest.done(function(data) {
+        window.location.reload();
+    });
+
+    createCalendarRequest.fail(function(data) {
+        alert('Could not create a new calendar!');
+    });
 };
 
 /**
