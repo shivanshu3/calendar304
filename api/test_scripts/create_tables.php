@@ -51,7 +51,7 @@ CREATE TABLE User
 array_push($table_create_queries, '
 CREATE TABLE Calendar
 (
-    Cid INT,
+    Cid INT AUTO_INCREMENT,
     Name CHAR(50),
     Uid INT,
     PRIMARY KEY (Cid),
