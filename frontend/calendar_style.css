@@ -1,16 +1,16 @@
-table, th, td {
+#calendar_table, #calendar_table td {
     border: 1px solid black;
 }
 
-td {
+#calendar_table td {
     width: 14%;
 }
 
-tr {
+#calendar_table tr {
     height: 14%;
 }
 
-table {
+#calendar_table {
     border-collapse: collapse;
     width: 1000px;
     height: 400px;
@@ -24,6 +24,6 @@ h1 {
     padding-bottom: 10px;
 }
 
-#days_row {
+#calendar_table #days_row {
     height: 20px;
 }
