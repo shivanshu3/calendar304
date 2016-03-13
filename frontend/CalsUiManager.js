@@ -59,9 +59,25 @@ CalsUiManager.prototype.populateUserCalendars = function() {
 
     userDetailsRequest.done(function(data) {
         _this.userDetails = data;
+        _this.showUserCalendars();
     });
 
     userDetailsRequest.fail(function(data) {
         alert('Could not retrieve user details.');
     });
 };
+
+/**
+ * Shows the user's calendars on the page.
+ */
+CalsUiManager.prototype.showUserCalendars = function() {
+    var calsList = $('#existing_calendars_div ul');
+    calsList.empty();
+
+    for (var i = 0; i < this.userDetails.calendars.length; i++) {
+        var calendar = this.userDetails.calendars[i];
+        var calendarBullet = $('<li> <a href = "javascript:void(0)">' +
+                calendar.name + '</a> </li>');
+        calsList.append(calendarBullet);
+    }
+}
