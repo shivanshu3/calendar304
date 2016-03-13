@@ -38,7 +38,7 @@ CalUiManager.prototype.init = function() {
     // If the user has not chosen a calendar, take them back to the
     // calendars page:
     if (!Utility.userSelectedCalendar()) {
-        Utility.redirectCalendars();
+        Utility.redirectCalendars(true);
         return;
     }
 

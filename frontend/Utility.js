@@ -168,8 +168,11 @@ Utility.userSelectedCalendar = function() {
 /**
  * Shows a message to the user saying that they need to select a calendar,
  * and then redirects them to the calendars page.
+ * If the showMessage argument is false, then the message is not shown.
  */
-Utility.redirectCalendars = function() {
-    alert('You need to select a calendar.');
+Utility.redirectCalendars = function(showMessage) {
+    if (showMessage) {
+        alert('You need to select a calendar.');
+    }
     window.location.href = '/calendar304/frontend/calendars.html';
 };
