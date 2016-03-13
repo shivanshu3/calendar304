@@ -56,6 +56,8 @@ CalUiManager.prototype.init = function() {
     if (window.location.hash == '') {
         // This should automatically trigger a calendar refresh:
         window.location.hash = Utility.monthNumToString(month) + "-" + year;
+        this.month = month;
+        this.year = year;
     } else {
         this.hashChanged(location.hash.slice(1));
     }
