@@ -1,7 +1,4 @@
 <?php
-    // Make a new user account
-?>
-<?php
 
 /*
 Makes a new user account. It only needs the name of the user.
