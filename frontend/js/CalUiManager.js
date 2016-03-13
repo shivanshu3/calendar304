@@ -64,6 +64,9 @@ CalUiManager.prototype.init = function() {
 
     // Initialize the month and year input boxes:
     this.initMonthYearInput();
+
+    // Populate and then show the color map of events:
+    this.populateEvents();
 };
 
 /**
@@ -167,4 +170,21 @@ CalUiManager.prototype.refreshView = function(month, year) {
  */
 CalUiManager.prototype.dateClicked = function(date) {
     console.log("date clicked: " + date);
+};
+
+/**
+ * Downloads events for all days and then populates them in this instance.
+ * showColorMap() is then called afterwards to show the color map of events
+ * in the calendar.
+ */
+CalUiManager.prototype.populateEvents = function(date) {
+    // TODO: Implement
+};
+
+/**
+ * Shows the color map of events on the calendar. Uses the events data
+ * stored in this instance.
+ */
+CalUiManager.prototype.showColorMap = function(date) {
+    // TODO: Implement
 };
