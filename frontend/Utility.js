@@ -153,3 +153,23 @@ Utility.redirectSignIn = function() {
     alert('You need to sign in.');
     window.location.href = '/calendar304/frontend/index.html';
 };
+
+/**
+ * Returns true if the user has selected a calendar, false otherwise.
+ */
+Utility.userSelectedCalendar = function() {
+    var user_calendar = window.localStorage.user_calendar;
+    var userNotSelectedCalendar = (user_calendar == "") ||
+        (user_calendar == null) || (isNaN(user_calendar)) ||
+        (isNaN(Number(user_calendar)));
+    return !userNotSelectedCalendar;
+};
+
+/**
+ * Shows a message to the user saying that they need to select a calendar,
+ * and then redirects them to the calendars page.
+ */
+Utility.redirectCalendars = function() {
+    alert('You need to select a calendar.');
+    window.location.href = '/calendar304/frontend/calendars.html';
+};
