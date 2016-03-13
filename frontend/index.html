@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Calendar 304</title>
+        <link rel="stylesheet" type="text/css" href="users_style.css">
+        <script type="text/javascript" src="./Utility.js"></script>
+        <script type="text/javascript" src="./UsersUiManager.js"></script>
+        <script type="text/javascript" src="./jquery-2.2.1.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                var uiManager = UsersUiManager.getInstance();
+                uiManager.init();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="main_app_div">
+            <h1>Calendar 304</h1>
+            <div id="sign_in_box">
+                <h2>Sign In</h2>
+                User ID: <input type="text">
+                <button type="button">Sign In</button>
+            </div>
+            <div id="sign_up_box">
+                <h2>Sign Up</h2>
+                Name: <input type="text">
+                <button type="button">Sign Up</button>
+            </div>
+        </div> <!-- main_app_div  -->
+    </body>
+</html>
