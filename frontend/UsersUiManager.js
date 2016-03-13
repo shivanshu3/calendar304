@@ -39,18 +39,16 @@ UsersUiManager.prototype.init = function() {
  * Runs when sign in button is clicked.
  */
 UsersUiManager.prototype.signInButtonClicked = function() {
+    var _this = this;
     var textbox = $('#sign_in_box input');
     var user_id = textbox.val();
-    console.log(user_id);
 
     var signInRequest = $.get('../api/user_exists.php', {id: user_id});
 
     signInRequest.done(function(data) {
         // User exists:
         if (data.exists) {
-            // Store the user id in local storage and open up the calendar:
-            window.localStorage.user_id = user_id;
-            window.location.href = './calendar.html';
+            _this.signInUser(user_id);
         }
         // User does not exist:
         else {
@@ -67,6 +65,7 @@ UsersUiManager.prototype.signInButtonClicked = function() {
  * Runs when sign up button is clicked.
  */
 UsersUiManager.prototype.signUpButtonClicked = function() {
+    var _this = this;
     var textbox = $('#sign_up_box input');
     var user_name = textbox.val();
 
@@ -76,13 +75,20 @@ UsersUiManager.prototype.signUpButtonClicked = function() {
         if (data.id == undefined) {
             alert('Sign Up Failed!');
         } else {
-            // Store the user id in local storage and open up the calendar:
-            window.localStorage.user_id = data.id;
-            window.location.href = './calendar.html';
+            _this.signInUser(data.id);
         }
     });
 
     signUpRequest.fail(function(data) {
         alert('Sign Up Failed!');
     });
+};
+
+/**
+ * Given the user id, it saves the id in local storage, and redirects
+ * to the user calendars page.
+ */
+UsersUiManager.prototype.signInUser = function(user_id) {
+    window.localStorage.user_id = user_id;
+    window.location.href = './calendar.html';
 };
