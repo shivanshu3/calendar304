@@ -14,6 +14,7 @@
 require 'database_connection.php';
 require 'utility.php';
 
+$user_id = $_GET['user_id'];
 $year = $_GET['year'];
 $month = $_GET['month'];
 $date = $_GET['date'];
@@ -75,8 +76,9 @@ $epoch_end -= $timezone_offset_seconds;
 // Find the events:
 $query = "
 SELECT Event.Eid
-FROM Event
-WHERE Event.StartTime > $epoch_start AND Event.StartTime < $epoch_end";
+FROM Event, Attends
+WHERE Event.Eid = Attends.Eid AND Attends.Uid = $user_id AND ".
+"Event.StartTime > $epoch_start AND Event.StartTime < $epoch_end";
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
