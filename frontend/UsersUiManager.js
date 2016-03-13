@@ -90,5 +90,5 @@ UsersUiManager.prototype.signUpButtonClicked = function() {
  */
 UsersUiManager.prototype.signInUser = function(user_id) {
     window.localStorage.user_id = user_id;
-    window.location.href = './calendar.html';
+    Utility.redirectCalendars();
 };
