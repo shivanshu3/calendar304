@@ -71,6 +71,7 @@ CalsUiManager.prototype.populateUserCalendars = function() {
  * Shows the user's calendars on the page.
  */
 CalsUiManager.prototype.showUserCalendars = function() {
+    var _this = this;
     var calsList = $('#existing_calendars_div ul');
     calsList.empty();
 
@@ -78,6 +79,22 @@ CalsUiManager.prototype.showUserCalendars = function() {
         var calendar = this.userDetails.calendars[i];
         var calendarBullet = $('<li> <a href = "javascript:void(0)">' +
                 calendar.name + '</a> </li>');
+        // Register the click callback in a self executing anonymous
+        // function because we want the calendar id to be stored in this
+        // function's closure.
+        (function() {
+            var cal_id = i;
+            calendarBullet.click(function() {
+                _this.calendarClicked(cal_id);
+            });
+        })();
         calsList.append(calendarBullet);
     }
-}
+};
+
+/**
+ * Runs when a calendar item is clicked.
+ */
+CalsUiManager.prototype.calendarClicked = function(cal_id) {
+    console.log(cal_id);
+};
