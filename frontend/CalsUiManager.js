@@ -22,4 +22,12 @@ CalsUiManager.getInstance = function() {
  * Runs when the app loads.
  */
 CalsUiManager.prototype.init = function() {
+    var _this = this;
+
+    // If the user is not signed in, take them back to the
+    // sign in/ sign up page:
+    if (!Utility.userSignedIn()) {
+        Utility.redirectSignIn();
+        return;
+    }
 };
