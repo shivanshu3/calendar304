@@ -30,4 +30,24 @@ CalsUiManager.prototype.init = function() {
         Utility.redirectSignIn();
         return;
     }
+
+    // Register a callback for the calendar create button:
+    $('#create_calendar_div button').click(function() {
+        _this.createCalendarClicked();
+    });
+
+    this.populateUserCalendars();
+};
+
+/**
+ * Runs when the create calendar button is clicked.
+ */
+CalsUiManager.prototype.createCalendarClicked = function() {
+    console.log('button clicked.');
+};
+
+/**
+ * Populates the user's calendars on the page.
+ */
+CalsUiManager.prototype.populateUserCalendars = function() {
 };
