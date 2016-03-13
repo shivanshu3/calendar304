@@ -134,3 +134,22 @@ Utility.numDaysInMonth = function(month, year) {
         return 28;
     }
 };
+
+/**
+ * Returns true if the user is signed in, false otherwise.
+ */
+Utility.userSignedIn = function() {
+    var user_id = window.localStorage.user_id;
+    var userNotSignedIn = (user_id == "") || (user_id == null) ||
+            (isNaN(user_id)) || (isNaN(Number(user_id)));
+    return !userNotSignedIn;
+};
+
+/**
+ * Shows a message to the user saying that they need to sign in, and then
+ * redirects them to the sign in page.
+ */
+Utility.redirectSignIn = function() {
+    alert('You need to sign in.');
+    window.location.href = '/calendar304/frontend/index.html';
+};
