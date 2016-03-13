@@ -42,7 +42,7 @@ $table_create_queries = array();
 array_push($table_create_queries, '
 CREATE TABLE User
 (
-    Uid INT,
+    Uid INT AUTO_INCREMENT,
     Name CHAR(50),
     PRIMARY KEY (Uid)
 );
