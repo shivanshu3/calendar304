@@ -6,6 +6,7 @@ user_create - Make a new user account
 user_edit - Change name of user
 user_delete - Delete a user account
 user_details - Get user details given a user
+user_exists - Determine if a user exists
 calendar_create - Make a new calendar for a user
 calendar_edit - Change name of a calendar
 calendar_delete - Delete a calendar
