@@ -35,6 +35,13 @@ CalUiManager.prototype.init = function() {
         return;
     }
 
+    // If the user has not chosen a calendar, take them back to the
+    // calendars page:
+    if (!Utility.userSelectedCalendar()) {
+        Utility.redirectCalendars();
+        return;
+    }
+
     var user_id = window.localStorage.user_id;
     if ((user_id == "") || (user_id == null) || (isNaN(user_id)) ||
             (isNaN(Number(user_id)))) {
