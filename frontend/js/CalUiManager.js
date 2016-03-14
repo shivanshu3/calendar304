@@ -178,7 +178,33 @@ CalUiManager.prototype.dateClicked = function(date) {
  * in the calendar.
  */
 CalUiManager.prototype.populateEvents = function(date) {
-    // TODO: Implement
+    var _this = this;
+
+    var timezoneOffset = (new Date()).getTimezoneOffset();
+
+    // Element 1 in this array will contain a list of events on the 1st
+    // day of the month, element 2 will contains a list of events on the 2nd
+    // day of the month, etc.
+    var events = [];
+    var numDays = Utility.numDaysInMonth(this.month, this.year);
+    // i represents the day # in the month in this loop:
+    for (var i = 1; i <= numDays; i++) {
+        var eventsListRequest = $.get('../api/events_list.php', {
+            calendar_id: window.localStorage.user_calendar,
+            year: _this.year,
+            month: _this.month,
+            date: i,
+            timezone_offset_minutes: timezoneOffset
+        });
+
+        eventsListRequest.done(function(data) {
+            console.log(data);
+        });
+
+        eventsListRequest.fail(function(data) {
+            alert('Could not download events!');
+        });
+    }
 };
 
 /**
