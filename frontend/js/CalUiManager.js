@@ -187,6 +187,10 @@ CalUiManager.prototype.populateEvents = function(date) {
     // day of the month, etc.
     var events = [];
     var numDays = Utility.numDaysInMonth(this.month, this.year);
+    // Used to keep track of how many responses from the server we have
+    // received. Once the counter reaches numDays, we'll know that we won't
+    // receive any more responses from the server.
+    var counter = 0;
     // i represents the day # in the month in this loop:
     for (var i = 1; i <= numDays; i++) {
         var eventsListRequest = $.get('../api/events_list.php', {
@@ -197,12 +201,25 @@ CalUiManager.prototype.populateEvents = function(date) {
             timezone_offset_minutes: timezoneOffset
         });
 
-        eventsListRequest.done(function(data) {
-            console.log(data);
-        });
+        // Using this self executing anonymous function here to store
+        // the day number in its closure, so that when we get the response
+        // from the server, we know which date the list of events belongs to.
+        (function() {
+            var dayNumber = i;
+            eventsListRequest.done(function(data) {
+                console.log(data, dayNumber);
+                events[dayNumber] = data;
+            });
+        })();
 
         eventsListRequest.fail(function(data) {
             alert('Could not download events!');
+        });
+
+        eventsListRequest.always(function(data) {
+            counter++;
+            if (counter == numDays) {
+            }
         });
     }
 };
