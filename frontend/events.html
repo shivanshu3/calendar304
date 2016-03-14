@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Calendar 304</title>
+        <link rel="stylesheet" type="text/css" href="css/events_style.css">
+        <script type="text/javascript" src="js/Utility.js"></script>
+        <script type="text/javascript" src="js/EventsUiManager.js"></script>
+        <script type="text/javascript" src="libraries/jquery-2.2.1.min.js">
+        </script>
+        <script type="text/javascript">
+            $(function() {
+                var uiManager = EventsUiManager.getInstance();
+                uiManager.init();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="main_app_div">
+            <h1>Calendar 304</h1>
+            <div id="existing_events_div">
+                <h2>Events:</h2>
+                <ul>
+                    <li>Foo</li>
+                    <li>Bar</li>
+                </ul>
+            </div>
+            <div id="create_event_div">
+                <h2>Create Event:</h2>
+                <div>
+                    Name: <input type="text" id="event_name">
+                </div>
+                <div>
+                    Start Time: <input type="time" id="event_start_time">
+                </div>
+                <div>
+                    Duration (seconds): <input type="text" id="event_duration">
+                </div>
+                <div>
+                    Room Number:
+                    <select id="event_room">
+                        <option>foo</option>
+                        <option>bar</option>
+                    </select>
+                </div>
+            </div>
+        </div> <!-- main_app_div  -->
+    </body>
+</html>
