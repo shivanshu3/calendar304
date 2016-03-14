@@ -180,6 +180,9 @@ Utility.redirectCalendars = function(showMessage) {
 /**
  * Redirects to the calendar page.
  */
-Utility.redirectCalendar = function() {
+Utility.redirectCalendar = function(showMessage) {
+    if (showMessage) {
+        alert('You need to select a date.');
+    }
     window.location.href = '/calendar304/frontend/calendar.html';
 };

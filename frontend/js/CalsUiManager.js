@@ -114,5 +114,5 @@ CalsUiManager.prototype.calendarClicked = function(cal_id) {
     // Store the calendar id in local storage and redirect to the
     // calendar page:
     window.localStorage.user_calendar = cal_id;
-    Utility.redirectCalendar();
+    Utility.redirectCalendar(false);
 };
