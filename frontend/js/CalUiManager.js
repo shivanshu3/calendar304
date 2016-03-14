@@ -220,7 +220,7 @@ CalUiManager.prototype.populateEvents = function(date) {
         eventsListRequest.always(function(data) {
             counter++;
             if (counter == numDays) {
-                this.events = events;
+                _this.events = events;
                 _this.showColorMap();
             }
         });
