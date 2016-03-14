@@ -8,6 +8,7 @@ var CalUiManager = function() {
     this.month = NaN;
     this.year = NaN;
     this.user_id = NaN;
+    this.events = null;
 };
 
 CalUiManager.singletonInstance = null;
@@ -219,6 +220,8 @@ CalUiManager.prototype.populateEvents = function(date) {
         eventsListRequest.always(function(data) {
             counter++;
             if (counter == numDays) {
+                this.events = events;
+                _this.showColorMap();
             }
         });
     }
@@ -228,6 +231,6 @@ CalUiManager.prototype.populateEvents = function(date) {
  * Shows the color map of events on the calendar. Uses the events data
  * stored in this instance.
  */
-CalUiManager.prototype.showColorMap = function(date) {
+CalUiManager.prototype.showColorMap = function() {
     // TODO: Implement
 };
