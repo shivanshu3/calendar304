@@ -208,7 +208,6 @@ CalUiManager.prototype.populateEvents = function(date) {
         (function() {
             var dayNumber = i;
             eventsListRequest.done(function(data) {
-                console.log(data, dayNumber);
                 events[dayNumber] = data;
             });
         })();
