@@ -65,9 +65,6 @@ CalUiManager.prototype.init = function() {
 
     // Initialize the month and year input boxes:
     this.initMonthYearInput();
-
-    // Populate and then show the color map of events:
-    this.populateEvents();
 };
 
 /**
@@ -108,6 +105,9 @@ CalUiManager.prototype.hashChanged = function(hash) {
     yearBox.val(year);
 
     this.refreshView(monthNum, year);
+
+    // Populate and then show the color map of events:
+    this.populateEvents();
 };
 
 /**
