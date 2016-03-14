@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Get all events scheduled on a particular date for the given user.
+ * Get all events scheduled on a particular date for the given calendar.
  * The date is given as year, month, date.
  * Note: Month is specified as a number, where 1 corresponds to Jan.
  * Note: This script ignores the duration of events. For example, if an event
@@ -19,7 +19,7 @@
 require 'database_connection.php';
 require 'utility.php';
 
-$user_id = $_GET['user_id'];
+$calendar_id = $_GET['calendar_id'];
 $year = $_GET['year'];
 $month = $_GET['month'];
 $date = $_GET['date'];
@@ -81,8 +81,8 @@ $epoch_end -= $timezone_offset_seconds;
 // Find the events:
 $query = "
 SELECT Event.Eid
-FROM Event, Attends
-WHERE Event.Eid = Attends.Eid AND Attends.Uid = $user_id AND ".
+FROM Event, Contains
+WHERE Event.Eid = Contains.Eid AND Contains.Cid = $calendar_id AND ".
 "Event.StartTime > $epoch_start AND Event.StartTime < $epoch_end";
 
 $result = mysqli_query($link, $query);
