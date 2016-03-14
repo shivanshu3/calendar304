@@ -230,7 +230,43 @@ CalUiManager.prototype.populateEvents = function(date) {
 /**
  * Shows the color map of events on the calendar. Uses the events data
  * stored in this instance.
+ * Right now, it colors days with no events white, and days with events
+ * green. We could also make it so that it could color days with different
+ * intensities of green depending on the # of events on a day.
  */
 CalUiManager.prototype.showColorMap = function() {
-    // TODO: Implement
+    // The day of week on the first of this month:
+    var dayOnFirst = new Date(this.year, this.month-1, 1).getDay();
+    // Make sunday = 7, monday = 1
+    dayOnFirst = (dayOnFirst == 0) ? 7 : dayOnFirst;
+
+    var calendarTable = $('#calendar_table');
+    var calRows = calendarTable.find("tr");
+    calRows = calRows.toArray(); // jQuery array to normal array
+    calRows.shift(); // Remove the first row because it contains days
+
+    var counter = 0 - dayOnFirst + 2;
+    var numDays = Utility.numDaysInMonth(this.month, this.year);
+
+    var _this = this;
+
+    // Color dates on the calendar:
+    for (var i = 0; i < 6; i++) {
+        var row = calRows[i];
+        var dates = $(row).find('td');
+        for (var j = 0; j < 7; j++) {
+            if (counter <= 0) {
+                $(dates[j]).css('background-color', 'white');
+            } else if (counter <= numDays) {
+                if (_this.events[counter].length > 0) {
+                    $(dates[j]).css('background-color', '#7CFF7C');
+                } else {
+                    $(dates[j]).css('background-color', 'white');
+                }
+            } else {
+                $(dates[j]).css('background-color', 'white');
+            }
+            counter++;
+        }
+    }
 };
