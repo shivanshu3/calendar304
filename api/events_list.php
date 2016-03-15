@@ -29,54 +29,13 @@ $timezone_offset_seconds = $timezone_offset_minutes * 60;
 
 date_default_timezone_set('UTC');
 
-switch ($month) {
-    case 1:
-        $month = "January";
-        break;
-    case 2:
-        $month = "February";
-        break;
-    case 3:
-        $month = "March";
-        break;
-    case 4:
-        $month = "April";
-        break;
-    case 5:
-        $month = "May";
-        break;
-    case 6:
-        $month = "June";
-        break;
-    case 7:
-        $month = "July";
-        break;
-    case 8:
-        $month = "August";
-        break;
-    case 9:
-        $month = "September";
-        break;
-    case 10:
-        $month = "October";
-        break;
-    case 11:
-        $month = "November";
-        break;
-    case 12:
-        $month = "December";
-        break;
-    default:
-        assert(false);
-}
-
 // These mark the start and end of the given day:
-$epoch_start = strtotime("$date $month $year");
+$epoch_start = mktime(0, 0, 0, $month, $date, $year);
 $epoch_end = $epoch_start + 24 * 60 * 60 - 1;
 
 // Adjust the time values to take into account the timezone offset:
-$epoch_start -= $timezone_offset_seconds;
-$epoch_end -= $timezone_offset_seconds;
+$epoch_start += $timezone_offset_seconds;
+$epoch_end += $timezone_offset_seconds;
 
 // Find the events:
 $query = "
