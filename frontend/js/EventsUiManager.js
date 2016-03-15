@@ -61,6 +61,43 @@ EventsUiManager.prototype.init = function() {
  * Runs when the create event button is clicked.
  */
 EventsUiManager.prototype.createEventClicked = function() {
+    var nameBox = $('#event_name');
+    var startTimeBox = $('#event_start_time');
+    var durationBox = $('#event_duration');
+    var roomNoDropdown = $('#event_room');
+
+    var name = nameBox.val();
+    var startTimeString = startTimeBox.val();
+    var duration = durationBox.val();
+    var roomNo = roomNoDropdown.val();
+
+    var user_id = window.localStorage.user_id;
+    var cal_id = window.localStorage.user_calendar;
+    var year = window.localStorage.year;
+    var month = window.localStorage.month;
+    var date = window.localStorage.date;
+    var hours = startTimeString.split(':')[0];
+    var minutes = startTimeString.split(':')[1];
+
+    var startTime = Math.round(new Date(year, month-1, date, hours,
+        minutes, 0, 0).getTime() / 1000);
+
+    var newEventRequest = $.get('../api/event_create.php', {
+        name: name,
+        start_time: startTime,
+        duration: duration,
+        room_no: roomNo,
+        user_id: user_id,
+        cal_id: cal_id
+    });
+
+    newEventRequest.done(function(data) {
+        console.log(data);
+    });
+
+    newEventRequest.fail(function(data) {
+        alert('Could not create an event');
+    });
 };
 
 /**
