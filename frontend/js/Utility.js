@@ -178,6 +178,28 @@ Utility.redirectCalendars = function(showMessage) {
 };
 
 /**
+ * Returns true if the user has selected a date, false otherwise.
+ */
+Utility.userSelectedDate = function() {
+    var year = window.localStorage.year;
+    var notSelectedYear = (year == "") ||
+        (year == null) || (isNaN(year)) ||
+        (isNaN(Number(year)));
+
+    var month = window.localStorage.month;
+    var notSelectedMonth = (month == "") ||
+        (month == null) || (isNaN(month)) ||
+        (isNaN(Number(month)));
+
+    var date = window.localStorage.date;
+    var notSelectedDate = (date == "") ||
+        (date == null) || (isNaN(date)) ||
+        (isNaN(Number(date)));
+
+    return !notSelectedYear && !notSelectedMonth && !notSelectedDate;
+};
+
+/**
  * Redirects to the calendar page.
  */
 Utility.redirectCalendar = function(showMessage) {
