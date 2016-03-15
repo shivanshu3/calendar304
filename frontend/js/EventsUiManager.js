@@ -160,11 +160,26 @@ EventsUiManager.prototype.populateRooms = function() {
 
     roomsRequest.done(function(data) {
         _this.rooms = data;
+        _this.showRooms();
     });
 
     roomsRequest.fail(function(data) {
         alert('Could not download rooms');
     });
+};
+
+/**
+ * Shows the rooms in the dropdown.
+ */
+EventsUiManager.prototype.showRooms = function() {
+    var roomsDropdown = $('#create_event_div select');
+    roomsDropdown.empty();
+
+    for (var i = 0; i < this.rooms.length; i++) {
+        var room = this.rooms[i];
+        var roomItem = $('<option>' + room.RoomNo + '</option>');
+        roomsDropdown.append(roomItem);
+    }
 };
 
 /**
