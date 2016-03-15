@@ -92,6 +92,11 @@ EventsUiManager.prototype.populateEvents = function() {
 EventsUiManager.prototype.populateEventsDetails = function() {
     var _this = this;
 
+    // We use this to keep track of how many event details we have downloaded.
+    // Once counter reaches this.events.length, we know that we have downloaded
+    // the details of all events.
+    var counter = 0;
+
     for (var i = 0; i < this.events.length; i++) {
         var eventDetailsRequest = $.get('../api/event_details.php', {
             id: this.events[i]
@@ -109,6 +114,14 @@ EventsUiManager.prototype.populateEventsDetails = function() {
 
         eventDetailsRequest.fail(function(data) {
             alert('Could not download event details.');
+        });
+
+        eventDetailsRequest.always(function() {
+            counter++;
+            if (counter == _this.events.length) {
+                // We are done downloading details of all the events:
+                _this.showEvents();
+            }
         });
     }
 };
