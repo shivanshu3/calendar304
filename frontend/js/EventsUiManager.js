@@ -6,6 +6,7 @@
 var EventsUiManager = function() {
     // Instance variables:
     this.events = null;
+    this.rooms = null;
 };
 
 EventsUiManager.singletonInstance = null;
@@ -53,6 +54,7 @@ EventsUiManager.prototype.init = function() {
     });
 
     this.populateEvents();
+    this.populateRooms();
 };
 
 /**
@@ -147,6 +149,22 @@ EventsUiManager.prototype.showEvents = function() {
         })();
         eventsList.append(eventItem);
     }
+};
+
+/**
+ * Gets the room numbers from the server and populates them in the dropdown.
+ */
+EventsUiManager.prototype.populateRooms = function() {
+    var _this = this;
+    var roomsRequest = $.get('../api/locations_list.php');
+
+    roomsRequest.done(function(data) {
+        _this.rooms = data;
+    });
+
+    roomsRequest.fail(function(data) {
+        alert('Could not download rooms');
+    });
 };
 
 /**
