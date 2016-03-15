@@ -5,7 +5,7 @@
 
 var EventsUiManager = function() {
     // Instance variables:
-    this.userDetails = null;
+    this.events = null;
 };
 
 EventsUiManager.singletonInstance = null;
@@ -65,6 +65,24 @@ EventsUiManager.prototype.createEventClicked = function() {
  * Populates the events in this instance.
  */
 EventsUiManager.prototype.populateEvents = function() {
+    var _this = this;
+    var timezoneOffset = (new Date()).getTimezoneOffset();
+
+    var getEventsRequest = $.get('../api/events_list.php', {
+        calendar_id: window.localStorage.user_calendar,
+        year: window.localStorage.year,
+        month: window.localStorage.month,
+        date: window.localStorage.date,
+        timezone_offset_minutes: timezoneOffset
+    });
+
+    getEventsRequest.done(function(data) {
+        _this.events = data;
+    });
+
+    getEventsRequest.fail(function(data) {
+        alert('Could not download events for this day.');
+    });
 };
 
 /**
