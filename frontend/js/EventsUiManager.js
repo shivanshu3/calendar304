@@ -92,7 +92,7 @@ EventsUiManager.prototype.createEventClicked = function() {
     });
 
     newEventRequest.done(function(data) {
-        console.log(data);
+        window.location.reload();
     });
 
     newEventRequest.fail(function(data) {
