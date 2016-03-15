@@ -78,11 +78,39 @@ EventsUiManager.prototype.populateEvents = function() {
 
     getEventsRequest.done(function(data) {
         _this.events = data;
+        _this.populateEventsDetails();
     });
 
     getEventsRequest.fail(function(data) {
         alert('Could not download events for this day.');
     });
+};
+
+/**
+ * Populates the details of all events in this instance.
+ */
+EventsUiManager.prototype.populateEventsDetails = function() {
+    var _this = this;
+
+    for (var i = 0; i < this.events.length; i++) {
+        var eventDetailsRequest = $.get('../api/event_details.php', {
+            id: this.events[i]
+        });
+
+        // We want eventsIndex to be in this self executing function's
+        // closure so that when we get the response from the server, we
+        // know which index we were at:
+        (function() {
+            var eventsIndex = i;
+            eventDetailsRequest.done(function(data) {
+                _this.events[eventsIndex] = data;
+            });
+        })();
+
+        eventDetailsRequest.fail(function(data) {
+            alert('Could not download event details.');
+        });
+    }
 };
 
 /**
