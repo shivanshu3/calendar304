@@ -72,7 +72,7 @@ CREATE TABLE Location
 array_push($table_create_queries, '
 CREATE TABLE Event
 (
-    Eid INT,
+    Eid INT AUTO_INCREMENT,
     Name CHAR(50),
     StartTime INT,
     Duration INT,
