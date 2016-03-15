@@ -170,7 +170,10 @@ CalUiManager.prototype.refreshView = function(month, year) {
  * The date clicked is passed to this function.
  */
 CalUiManager.prototype.dateClicked = function(date) {
-    console.log("date clicked: " + date);
+    window.localStorage.year = this.year;
+    window.localStorage.month = this.month;
+    window.localStorage.date = date;
+    Utility.redirectEvents(false);
 };
 
 /**

@@ -208,3 +208,13 @@ Utility.redirectCalendar = function(showMessage) {
     }
     window.location.href = '/calendar304/frontend/calendar.html';
 };
+
+/**
+ * Redirects to the events page.
+ */
+Utility.redirectEvents = function(showMessage) {
+    if (showMessage) {
+        alert('You need to select an event.');
+    }
+    window.location.href = '/calendar304/frontend/events.html';
+};
