@@ -130,6 +130,14 @@ EventsUiManager.prototype.populateEventsDetails = function() {
  * Shows the events on the page.
  */
 EventsUiManager.prototype.showEvents = function() {
+    var eventsList = $('#existing_events_div ul');
+    eventsList.empty();
+
+    for (var i = 0; i < this.events.length; i++) {
+        var event = this.events[i];
+        eventItem = $('<li>' + event.name + '</li>');
+        eventsList.append(eventItem);
+    }
 };
 
 /**
