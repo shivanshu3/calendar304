@@ -130,12 +130,21 @@ EventsUiManager.prototype.populateEventsDetails = function() {
  * Shows the events on the page.
  */
 EventsUiManager.prototype.showEvents = function() {
+    var _this = this;
     var eventsList = $('#existing_events_div ul');
     eventsList.empty();
 
     for (var i = 0; i < this.events.length; i++) {
         var event = this.events[i];
-        eventItem = $('<li>' + event.name + '</li>');
+        eventItem = $('<li> <a href="javascript:void(0)">' + event.name +
+            '</a> </li>');
+        // Storing eventId in this function's closure:
+        (function() {
+            var eventId = event.id;
+            eventItem.click(function() {
+                _this.eventClicked(eventId);
+            });
+        })();
         eventsList.append(eventItem);
     }
 };
@@ -143,5 +152,6 @@ EventsUiManager.prototype.showEvents = function() {
 /**
  * Runs when an event is clicked.
  */
-EventsUiManager.prototype.eventClicked = function(cal_id) {
+EventsUiManager.prototype.eventClicked = function(id) {
+    console.log(id);
 };
