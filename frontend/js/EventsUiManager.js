@@ -223,5 +223,6 @@ EventsUiManager.prototype.showRooms = function() {
  * Runs when an event is clicked.
  */
 EventsUiManager.prototype.eventClicked = function(id) {
-    console.log(id);
+    window.localStorage.event_id = id;
+    Utility.redirectEvent(false);
 };

@@ -230,3 +230,11 @@ Utility.redirectEvents = function(showMessage) {
     }
     window.location.href = '/calendar304/frontend/events.html';
 };
+
+/**
+ * Redirects to the event page.
+ * showMessage argument is not implemented right now.
+ */
+Utility.redirectEvent = function(showMessage) {
+    window.location.href = '/calendar304/frontend/event.html';
+};
