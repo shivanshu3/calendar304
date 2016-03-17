@@ -123,7 +123,8 @@ EventUiManager.prototype.populateRooms = function() {
 };
 
 /**
- * Shows the rooms in the dropdown.
+ * Fills the room numbers in the dropdown, and then selects the one
+ * which is in the event.
  */
 EventUiManager.prototype.showRooms = function() {
     var roomsDropdown = $('#basic_details_div select');
@@ -134,4 +135,7 @@ EventUiManager.prototype.showRooms = function() {
         var roomItem = $('<option>' + room.RoomNo + '</option>');
         roomsDropdown.append(roomItem);
     }
+
+    // Select the event room number:
+    roomsDropdown.val(this.eventDetails.location.room_no);
 };
