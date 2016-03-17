@@ -70,9 +70,34 @@ EventUiManager.prototype.populateEventDetails = function() {
 
     eventDetailsRequest.done(function(data) {
         _this.eventDetails = data;
+        _this.showEventDetails();
     });
 
     eventDetailsRequest.fail(function(data) {
         alert('Event details could not be downloaded.');
     });
+};
+
+/**
+ * Shows the event details on the page. Uses the event details stored
+ * in this instance.
+ */
+EventUiManager.prototype.showEventDetails = function() {
+    var nameBox = $('#event_name');
+    var startTimeBox = $('#event_start_time');
+    var durationBox = $('#event_duration');
+    var roomNoDropdown = $('#event_room');
+
+    var startTimeObject = new Date(Number(this.eventDetails.start_time * 1000));
+    var startTimeHours = startTimeObject.getHours();
+    var startTimeMinutes = startTimeObject.getMinutes();
+    var startTimeHoursString = (startTimeHours < 10) ?
+        ('0' + startTimeHours.toString()) : startTimeHours.toString();
+    var startTimeMinutesString = (startTimeMinutes < 10) ?
+        ('0' + startTimeMinutes.toString()) : startTimeMinutes.toString();
+    var startTimeString = startTimeHoursString + ':' + startTimeMinutesString;
+
+    nameBox.val(this.eventDetails.name);
+    startTimeBox.val(startTimeString);
+    durationBox.val(this.eventDetails.duration);
 };
