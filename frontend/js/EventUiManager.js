@@ -6,6 +6,7 @@
 var EventUiManager = function() {
     // Instance variables:
     this.eventDetails = null;
+    this.rooms = null;
 };
 
 EventUiManager.singletonInstance = null;
@@ -100,4 +101,23 @@ EventUiManager.prototype.showEventDetails = function() {
     nameBox.val(this.eventDetails.name);
     startTimeBox.val(startTimeString);
     durationBox.val(this.eventDetails.duration);
+
+    this.populateRooms();
+};
+
+/**
+ * Gets the room numbers from the server and stores them in this instance.
+ */
+EventUiManager.prototype.populateRooms = function() {
+    var _this = this;
+    var roomsRequest = $.get('../api/locations_list.php');
+
+    roomsRequest.done(function(data) {
+        _this.rooms = data;
+        _this.showRooms();
+    });
+
+    roomsRequest.fail(function(data) {
+        alert('Could not download rooms');
+    });
 };
