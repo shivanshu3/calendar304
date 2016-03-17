@@ -5,6 +5,7 @@
 
 var EventUiManager = function() {
     // Instance variables:
+    this.eventDetails = null;
 };
 
 EventUiManager.singletonInstance = null;
@@ -52,4 +53,26 @@ EventUiManager.prototype.init = function() {
         Utility.redirectEvents(true);
         return;
     }
+
+    // Populate the event details in this instance:
+    this.populateEventDetails();
+};
+
+/**
+ * Downloads the event details from the server and stores them in this
+ * instance.
+ */
+EventUiManager.prototype.populateEventDetails = function() {
+    var _this = this;
+    var event_id = window.localStorage.event_id;
+
+    var eventDetailsRequest = $.get('../api/event_details.php', {id: event_id});
+
+    eventDetailsRequest.done(function(data) {
+        _this.eventDetails = data;
+    });
+
+    eventDetailsRequest.fail(function(data) {
+        alert('Event details could not be downloaded.');
+    });
 };
