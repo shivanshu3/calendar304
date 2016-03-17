@@ -210,6 +210,18 @@ Utility.redirectCalendar = function(showMessage) {
 };
 
 /**
+ * Returns true if the user has selected an event, false otherwise.
+ */
+Utility.userSelectedEvent = function() {
+    var event_id = window.localStorage.event_id;
+    var notSelectedEvent = (event_id == "") ||
+        (event_id == null) || (isNaN(event_id)) ||
+        (isNaN(Number(event_id)));
+
+    return !notSelectedEvent;
+};
+
+/**
  * Redirects to the events page.
  */
 Utility.redirectEvents = function(showMessage) {
