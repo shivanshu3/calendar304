@@ -42,7 +42,7 @@ $query = "
 SELECT Event.Eid
 FROM Event, Contains
 WHERE Event.Eid = Contains.Eid AND Contains.Cid = $calendar_id AND ".
-"Event.StartTime > $epoch_start AND Event.StartTime < $epoch_end";
+"Event.StartTime >= $epoch_start AND Event.StartTime <= $epoch_end";
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
