@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Calendar 304</title>
+        <link rel="stylesheet" type="text/css" href="css/event_style.css">
+        <script type="text/javascript" src="js/Utility.js"></script>
+        <script type="text/javascript" src="js/EventUiManager.js"></script>
+        <script type="text/javascript" src="libraries/jquery-2.2.1.min.js">
+        </script>
+        <script type="text/javascript">
+            $(function() {
+                var uiManager = EventUiManager.getInstance();
+                uiManager.init();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="main_app_div">
+            <h1>Calendar 304</h1>
+            <div id="basic_details_div">
+                <h2>Event:</h2>
+                <div>
+                    Name: <input type="text" id="event_name">
+                </div>
+                <div>
+                    Start Time: <input type="time" id="event_start_time">
+                </div>
+                <div>
+                    Duration (seconds): <input type="text" id="event_duration">
+                </div>
+                <div>
+                    Room Number:
+                    <!-- Dropdown which will be populated with the available
+                         rooms -->
+                    <select id="event_room"></select>
+                </div>
+                <div>
+                    <button type="button">Delete this event</button>
+                </div>
+            </div>
+        </div> <!-- main_app_div  -->
+    </body>
+</html>
