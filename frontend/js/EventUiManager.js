@@ -55,8 +55,31 @@ EventUiManager.prototype.init = function() {
         return;
     }
 
+    // Register button click callbacks:
+    $('#save_changes_button').click(function() {
+        _this.saveChangesButtonClicked();
+    });
+
+    $('#delete_event_button').click(function() {
+        _this.deleteEventButtonClicked();
+    });
+
     // Populate the event details in this instance:
     this.populateEventDetails();
+};
+
+/**
+ * Runs when save changes button is clicked.
+ */
+EventUiManager.prototype.saveChangesButtonClicked = function() {
+    console.log('save');
+};
+
+/**
+ * Runs when delete event button is clicked.
+ */
+EventUiManager.prototype.deleteEventButtonClicked = function() {
+    console.log('delete');
 };
 
 /**
