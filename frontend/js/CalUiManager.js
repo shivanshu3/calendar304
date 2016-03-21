@@ -50,11 +50,20 @@ CalUiManager.prototype.init = function() {
     });
 
     var time = new Date();
-    var month = time.getMonth() + 1; // [1-12]
-    var year = time.getFullYear();
+    var currentMonth = time.getMonth() + 1; // [1-12]
+    var currentYear = time.getFullYear();
 
     // Create a window hash if it doesn't exist already.
     if (window.location.hash == '') {
+        // If a month and year exists in localStorage, use that.
+        // Otherwise use the current month and year.
+        var month = (window.localStorage.month == undefined) ? currentMonth :
+            window.localStorage.month;
+        var year = (window.localStorage.year == undefined) ? currentYear :
+            window.localStorage.year;
+        month = Number(month);
+        year = Number(year);
+
         // This should automatically trigger a calendar refresh:
         window.location.hash = Utility.monthNumToString(month) + "-" + year;
         this.month = month;
@@ -118,6 +127,8 @@ CalUiManager.prototype.refreshView = function(month, year) {
     // update this instance:
     this.month = Number(month);
     this.year = Number(year);
+    window.localStorage.month = month;
+    window.localStorage.year = year;
 
     // The day of week on the first of this month:
     var dayOnFirst = new Date(year, month-1, 1).getDay();
