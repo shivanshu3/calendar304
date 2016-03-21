@@ -10,7 +10,6 @@
 require 'database_connection.php';
 require 'utility.php';
 
-
 $event_id = $_GET['id'];
 
 // This will store the final result:
@@ -24,7 +23,7 @@ $delete_event_query = "DELETE FROM Contains WHERE Eid = '$event_id'";
 
 $result = mysqli_query($link, $delete_event_query);
 if ($result === FALSE) {
-    printf("query could not be executed");
+    printf("query 1 could not be executed");
     exit(1);
 }
 
@@ -33,7 +32,7 @@ $delete_event_query = "DELETE FROM Attends WHERE Eid = '$event_id'";
 
 $result = mysqli_query($link, $delete_event_query);
 if ($result === FALSE) {
-    printf("query could not be executed");
+    printf("query 2 could not be executed");
     exit(1);
 }
 
@@ -42,7 +41,7 @@ if ($result === FALSE) {
 $query = "SELECT DISTINCT Rid FROM Reminder WHERE Eid = '$event_id'";
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
-    printf("query could not be executed");
+    printf("query 3 could not be executed");
     exit(1);
 }
 
@@ -55,7 +54,7 @@ if(count($all_rows) !== 0){
     $query = "DELETE FROM Reminds WHERE Rid = '$rid'";
     $result = mysqli_query($link, $query);
     if ($result === FALSE) {
-        printf("query could not be executed");
+        printf("query 4 could not be executed");
         exit(1);
     }
 }
@@ -65,16 +64,16 @@ $delete_event_query = "DELETE FROM Reminder WHERE Eid = '$event_id'";
 
 $result = mysqli_query($link, $delete_event_query);
 if ($result === FALSE) {
-    printf("query could not be executed");
+    printf("query 5 could not be executed");
     exit(1);
 }
 
 // Finally, delete the record from the Events table
-$delete_event_query = "DELETE FROM Events WHERE Eid = '$event_id'";
+$delete_event_query = "DELETE FROM Event WHERE Eid = '$event_id'";
 
 $result = mysqli_query($link, $delete_event_query);
 if ($result === FALSE) {
-    printf("query could not be executed");
+    printf("query 6 could not be executed");
     exit(1);
 }
 
