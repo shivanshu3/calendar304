@@ -4,7 +4,12 @@
  * Deletes an event and removes it from the Attends, and Contains table.
  * Also removes any reminders from the Reminds and Reminder tables for
  * this event.
- * It returns nothing
+ *
+ * The returned object looks like the following:
+ *
+ * {
+ *     success: true/false
+ * }
  */
 
 require 'database_connection.php';
@@ -65,5 +70,8 @@ if ($result === FALSE) {
     printf("query 5 could not be executed");
     exit(1);
 }
+
+$json_result['success'] = true;
+output_json($json_result);
 
 ?>
