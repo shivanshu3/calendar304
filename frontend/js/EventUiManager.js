@@ -85,7 +85,7 @@ EventUiManager.prototype.deleteEventButtonClicked = function() {
     var deleteEventRequest = $.get('../api/event_delete.php', {id: event_id});
 
     deleteEventRequest.done(function(data) {
-        window.location.reload();
+        Utility.redirectEvents(false);
     });
 
     deleteEventRequest.fail(function(data) {
