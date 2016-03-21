@@ -15,9 +15,6 @@ $event_id = $_GET['id'];
 // This will store the final result:
 $json_result = array();
 
-// This contains all the sql queries:
-$queries = [];
-
 // Delete all the records from the Contains table that match event_id
 $delete_event_query = "DELETE FROM Contains WHERE Eid = '$event_id'";
 
@@ -36,27 +33,19 @@ if ($result === FALSE) {
     exit(1);
 }
 
-// Retrieve the Rid associated with event_id from the Reminder table
-// if one exists
-$query = "SELECT DISTINCT Rid FROM Reminder WHERE Eid = '$event_id'";
+// Remove all records from the Reminds table which were reminders for
+// this event.
+$query = "
+DELETE FROM Reminds WHERE Reminds.Rid IN (
+    SELECT DISTINCT Reminder.Rid
+    FROM Reminder
+    WHERE Reminder.Eid = '$event_id'
+)";
+
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
     printf("query 3 could not be executed");
     exit(1);
-}
-
-$all_rows = $result->fetch_all();
-
-// If Rid exists, remove it from the Reminds table
-if(count($all_rows) !== 0){
-    $rid = $all_rows[0][0];    
-
-    $query = "DELETE FROM Reminds WHERE Rid = '$rid'";
-    $result = mysqli_query($link, $query);
-    if ($result === FALSE) {
-        printf("query 4 could not be executed");
-        exit(1);
-    }
 }
 
 // Delete all the records from the Reminder table that match event_id
@@ -64,7 +53,7 @@ $delete_event_query = "DELETE FROM Reminder WHERE Eid = '$event_id'";
 
 $result = mysqli_query($link, $delete_event_query);
 if ($result === FALSE) {
-    printf("query 5 could not be executed");
+    printf("query 4 could not be executed");
     exit(1);
 }
 
@@ -73,7 +62,7 @@ $delete_event_query = "DELETE FROM Event WHERE Eid = '$event_id'";
 
 $result = mysqli_query($link, $delete_event_query);
 if ($result === FALSE) {
-    printf("query 6 could not be executed");
+    printf("query 5 could not be executed");
     exit(1);
 }
 
