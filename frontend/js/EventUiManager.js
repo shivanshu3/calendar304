@@ -55,23 +55,34 @@ EventUiManager.prototype.init = function() {
         return;
     }
 
-    // Register a callback for the event delete button:
-    $('#basic_details_div button').click(function() {
-        _this.deleteEventClicked();
+    // Register button click callbacks:
+    $('#save_changes_button').click(function() {
+        _this.saveChangesButtonClicked();
+    });
+
+    $('#delete_event_button').click(function() {
+        _this.deleteEventButtonClicked();
     });
 
     // Populate the event details in this instance:
-    _this.populateEventDetails();
+    this.populateEventDetails();
 };
 
 /**
- * Runs when the delete event button is clicked
+ * Runs when save changes button is clicked.
  */
-EventUiManager.prototype.deleteEventClicked = function() {
+EventUiManager.prototype.saveChangesButtonClicked = function() {
+    console.log('save');
+};
+
+/**
+ * Runs when delete event button is clicked.
+ */
+EventUiManager.prototype.deleteEventButtonClicked = function() {
     var _this = this;
     var event_id = window.localStorage.event_id;
 
-    var deleteEventRequest = $.get('../api/event_delete.php',{id: event_id});
+    var deleteEventRequest = $.get('../api/event_delete.php', {id: event_id});
 
     deleteEventRequest.done(function(data) {
         Utility.redirectEvents(false);
