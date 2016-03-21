@@ -82,12 +82,16 @@ EventUiManager.prototype.saveChangesButtonClicked = function() {
     var duration = durationBox.val();
     var roomNo = roomNoDropdown.val();
 
+    var year = window.localStorage.year;
+    var month = window.localStorage.month;
+    var date = window.localStorage.date;
+
     var hours = startTimeString.split(':')[0];
     var minutes = startTimeString.split(':')[1];
     var startTime = Math.round(new Date(year, month-1, date, hours,
         minutes, 0, 0).getTime() / 1000);
 
-    var updateEventRequest = $.get('../api/event_create.php', {
+    var updateEventRequest = $.get('../api/event_edit.php', {
         event_id: window.localStorage.event_id,
         name: name,
         start_time: startTime,
