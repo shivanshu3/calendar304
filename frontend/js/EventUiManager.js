@@ -72,7 +72,36 @@ EventUiManager.prototype.init = function() {
  * Runs when save changes button is clicked.
  */
 EventUiManager.prototype.saveChangesButtonClicked = function() {
-    console.log('save');
+    var nameBox = $('#event_name');
+    var startTimeBox = $('#event_start_time');
+    var durationBox = $('#event_duration');
+    var roomNoDropdown = $('#event_room');
+
+    var name = nameBox.val();
+    var startTimeString = startTimeBox.val();
+    var duration = durationBox.val();
+    var roomNo = roomNoDropdown.val();
+
+    var hours = startTimeString.split(':')[0];
+    var minutes = startTimeString.split(':')[1];
+    var startTime = Math.round(new Date(year, month-1, date, hours,
+        minutes, 0, 0).getTime() / 1000);
+
+    var updateEventRequest = $.get('../api/event_create.php', {
+        event_id: window.localStorage.event_id,
+        name: name,
+        start_time: startTime,
+        duration: duration,
+        room_no: roomNo,
+    });
+
+    updateEventRequest.done(function(data) {
+        window.location.reload();
+    });
+
+    updateEventRequest.fail(function(data) {
+        alert('Could not save changes');
+    });
 };
 
 /**
