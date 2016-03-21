@@ -35,14 +35,14 @@ if ($result === FALSE) {
 
 // Remove all records from the Reminds table which were reminders for
 // this event.
-$query = "
+$delete_event_query = "
 DELETE FROM Reminds WHERE Reminds.Rid IN (
     SELECT DISTINCT Reminder.Rid
     FROM Reminder
     WHERE Reminder.Eid = '$event_id'
 )";
 
-$result = mysqli_query($link, $query);
+$result = mysqli_query($link, $delete_event_query);
 if ($result === FALSE) {
     printf("query 3 could not be executed");
     exit(1);
