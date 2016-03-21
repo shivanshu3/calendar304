@@ -78,7 +78,7 @@ EventUiManager.prototype.deleteEventClicked = function() {
     });
 
     deleteEventRequest.fail(function(data) {
-        alert('Evet could not be deleted.');
+        alert('Event could not be deleted.');
     });
 };
 
