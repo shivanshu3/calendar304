@@ -79,7 +79,18 @@ EventUiManager.prototype.saveChangesButtonClicked = function() {
  * Runs when delete event button is clicked.
  */
 EventUiManager.prototype.deleteEventButtonClicked = function() {
-    console.log('delete');
+    var _this = this;
+    var event_id = window.localStorage.event_id;
+
+    var deleteEventRequest = $.get('../api/event_delete.php', {id: event_id});
+
+    deleteEventRequest.done(function(data) {
+        window.location.reload();
+    });
+
+    deleteEventRequest.fail(function(data) {
+        alert('Event could not be deleted.');
+    });
 };
 
 /**
