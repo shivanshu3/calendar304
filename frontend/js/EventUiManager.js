@@ -58,16 +58,16 @@ EventUiManager.prototype.init = function() {
     // Register a callback for the event delete button:
     $('#basic_details_div button').click(function() {
         _this.deleteEventClicked();
-    }
+    });
 
     // Populate the event details in this instance:
-    this.populateEventDetails();
+    _this.populateEventDetails();
 };
 
 /**
  * Runs when the delete event button is clicked
  */
-EventsUIManager.prototype.deleteEventClicked() = function() {
+EventUiManager.prototype.deleteEventClicked = function() {
     var _this = this;
     var event_id = window.localStorage.event_id;
 
@@ -80,7 +80,7 @@ EventsUIManager.prototype.deleteEventClicked() = function() {
     deleteEventRequest.fail(function(data) {
         alert('Evet could not be deleted.');
     });
-}
+};
 
 /**
  * Downloads the event details from the server and stores them in this
