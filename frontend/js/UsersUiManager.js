@@ -75,6 +75,7 @@ UsersUiManager.prototype.signUpButtonClicked = function() {
         if (data.id == undefined) {
             alert('Sign Up Failed!');
         } else {
+            alert('Your account has been created. Your ID is: ' + data.id);
             _this.signInUser(data.id);
         }
     });
