@@ -115,8 +115,22 @@ CalsUiManager.prototype.showUserCalendars = function() {
  * Runs when a calendar item is clicked.
  */
 CalsUiManager.prototype.calendarClicked = function(cal_id) {
-    // Store the calendar id in local storage and redirect to the
-    // calendar page:
+    // Store the calendar id in local storage
     window.localStorage.user_calendar = cal_id;
+
+    // Find the name of this calendar:
+    var calName = '';
+    for (var i = 0; i < this.userDetails.calendars.length; i++) {
+        var calendar = this.userDetails.calendars[i];
+        if (calendar.id == cal_id) {
+            calName = calendar.name;
+            break;
+        }
+    }
+
+    // Store the calendar name in local storage:
+    window.localStorage.calendar_name = calName;
+
+    // Redirect to the calendar page:
     Utility.redirectCalendar(false);
 };
