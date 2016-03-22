@@ -105,6 +105,10 @@ CalsUiManager.prototype.showUserCalendars = function() {
         })();
         calsList.append(calendarBullet);
     }
+
+    // Show user's name and ID:
+    $('#user_name').text(this.userDetails.name);
+    $('#user_id').text(this.userDetails.id);
 };
 
 /**
