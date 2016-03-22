@@ -99,12 +99,48 @@ EventUiManager.prototype.saveChangesButtonClicked = function() {
         room_no: roomNo,
     });
 
+    // Keeps track of how many queries we have completed.
+    // We need to complete 2 queries (event_edit and event_attend)
+    // before we can refresh the page.
+    var counter = 0;
+    var saveQueryComplete = function() {
+        counter++;
+        if (counter == 2) {
+            window.location.reload();
+        }
+    };
+
     updateEventRequest.done(function(data) {
-        window.location.reload();
+        // Nothing needs to happen here.
     });
 
     updateEventRequest.fail(function(data) {
         alert('Could not save changes');
+    });
+
+    updateEventRequest.always(function() {
+        saveQueryComplete();
+    });
+
+    // The "attending" status is saved by a different query:
+    var attending = $('input[name=attending]:checked').attr('value') == 'Yes';
+
+    var updateAttendingRequest = $.get('../api/event_attend.php', {
+        user_id: window.localStorage.user_id,
+        event_id: window.localStorage.event_id,
+        attending: attending
+    });
+
+    updateAttendingRequest.done(function(data) {
+        // Nothing needs to happen here.
+    });
+
+    updateAttendingRequest.fail(function(data) {
+        alert('Could not save changes');
+    });
+
+    updateAttendingRequest.always(function() {
+        saveQueryComplete();
     });
 };
 
