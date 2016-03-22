@@ -11,4 +11,11 @@ function output_json($php_array) {
     echo json_encode($php_array);
 }
 
+/**
+ * Returns true if needle is in the haystack. False otherwise.
+ */
+function str_contains($haystack, $needle) {
+    return (strpos($haystack, $needle) !== FALSE);
+}
+
 ?>
