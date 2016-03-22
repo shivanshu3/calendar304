@@ -74,6 +74,9 @@ CalUiManager.prototype.init = function() {
 
     // Initialize the month and year input boxes:
     this.initMonthYearInput();
+
+    // Show the calendar name:
+    $('#calendar_name').text(window.localStorage.calendar_name);
 };
 
 /**
