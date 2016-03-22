@@ -24,7 +24,7 @@ $attending = $_GET['attending'];
 // This will store the final result:
 $json_result = array();
 
-if ($attending == true) {
+if ($attending == 'true') {
     $query = "
     INSERT INTO Attends (Uid, Eid)
     VALUES ('$user_id', '$event_id')";
