@@ -169,6 +169,23 @@ EventUiManager.prototype.showEventDetails = function() {
     startTimeBox.val(startTimeString);
     durationBox.val(this.eventDetails.duration);
 
+    // Determine whether this user is attending this event:
+    var attending = false;
+    for (var i = 0; i < this.eventDetails.users.length; i++) {
+        var user = this.eventDetails.users[i];
+        if (user.id == window.localStorage.user_id) {
+            attending = true;
+            break;
+        }
+    }
+
+    // Show the "attending" status of this user in the radio buttons:
+    if (attending) {
+        $('input[name=attending][value=Yes]').prop('checked', true);
+    } else {
+        $('input[name=attending][value=No]').prop('checked', true);
+    }
+
     this.populateRooms();
 };
 
