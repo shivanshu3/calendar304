@@ -55,7 +55,20 @@ CalsUiManager.prototype.init = function() {
  * Runs when the save name button is clicked.
  */
 CalsUiManager.prototype.saveNameClicked = function() {
-    console.log('save name clicked.');
+    var name = $('#user_name').val();
+
+    var saveNameRequest = $.get('../api/user_edit.php', {
+        user_id: window.localStorage.user_id,
+        name: name
+    });
+
+    saveNameRequest.done(function(data) {
+        window.location.reload();
+    });
+
+    saveNameRequest.fail(function(data) {
+        alert('Could not save name!');
+    });
 };
 
 /**
