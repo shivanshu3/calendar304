@@ -80,8 +80,20 @@ CalUiManager.prototype.init = function() {
         _this.deleteButtonPressed();
     });
 
+    // Register a callback for the save name change button:
+    $('#save_name_change').click(function() {
+        _this.saveNameChangeButtonPressed();
+    });
+
     // Show the calendar name:
     $('#calendar_name').val(window.localStorage.calendar_name);
+};
+
+/**
+ * Runs when the save name change button is pressed.
+ */
+CalUiManager.prototype.saveNameChangeButtonPressed = function() {
+    console.log('Save name change button pressed');
 };
 
 /**
