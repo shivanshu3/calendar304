@@ -128,9 +128,6 @@ CalsUiManager.prototype.calendarClicked = function(cal_id) {
         }
     }
 
-    // Store the calendar name in local storage:
-    window.localStorage.calendar_name = calName;
-
     // Redirect to the calendar page:
     Utility.redirectCalendar(false);
 };

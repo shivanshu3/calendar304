@@ -86,7 +86,24 @@ CalUiManager.prototype.init = function() {
     });
 
     // Show the calendar name:
-    $('#calendar_name').val(window.localStorage.calendar_name);
+    this.showCalendarName();
+};
+
+/**
+ * Shows the calendar name in the textbox.
+ */
+CalUiManager.prototype.showCalendarName = function() {
+    var calendarDetailsRequest = $.get('../api/calendar_details.php', {
+        id: window.localStorage.user_calendar
+    });
+
+    calendarDetailsRequest.done(function(data) {
+        $('#calendar_name').val(data.name);
+    });
+
+    calendarDetailsRequest.fail(function(data) {
+        alert('Could not edit calendar name');
+    });
 };
 
 /**
