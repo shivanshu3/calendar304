@@ -30,7 +30,7 @@ EventsUiManager.prototype.init = function() {
     // If the user is not signed in, take them back to the
     // sign in/ sign up page:
     if (!Utility.userSignedIn()) {
-        Utility.redirectSignIn();
+        Utility.redirectSignIn(true);
         return;
     }
 

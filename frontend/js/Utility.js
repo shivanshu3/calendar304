@@ -149,8 +149,10 @@ Utility.userSignedIn = function() {
  * Shows a message to the user saying that they need to sign in, and then
  * redirects them to the sign in page.
  */
-Utility.redirectSignIn = function() {
-    alert('You need to sign in.');
+Utility.redirectSignIn = function(showMessage) {
+    if (showMessage) {
+        alert('You need to sign in.');
+    }
     window.location.href = '/calendar304/frontend/index.html';
 };
 

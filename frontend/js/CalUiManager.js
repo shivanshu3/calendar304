@@ -32,7 +32,7 @@ CalUiManager.prototype.init = function() {
     // If the user is not signed in, take them back to the
     // sign in/ sign up page:
     if (!Utility.userSignedIn()) {
-        Utility.redirectSignIn();
+        Utility.redirectSignIn(true);
         return;
     }
     this.user_id = Number(window.localStorage.user_id);
