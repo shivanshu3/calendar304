@@ -57,7 +57,6 @@ CalsUiManager.prototype.deleteUserClicked = function() {
  * Runs when the create calendar button is clicked.
  */
 CalsUiManager.prototype.createCalendarClicked = function() {
-    console.log('button clicked.');
     var _this = this;
     var calName = $('#create_calendar_div input').val();
 
