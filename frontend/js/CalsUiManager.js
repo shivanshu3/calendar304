@@ -50,7 +50,19 @@ CalsUiManager.prototype.init = function() {
  * Runs when the delete user button is clicked.
  */
 CalsUiManager.prototype.deleteUserClicked = function() {
-    console.log('Delete user button clicked.');
+    var _this = this;
+
+    var deleteUserRequest = $.get('../api/user_delete.php', {
+        user_id: window.localStorage.user_id
+    });
+
+    deleteUserRequest.done(function(data) {
+        Utility.redirectSignIn();
+    });
+
+    deleteUserRequest.fail(function(data) {
+        alert('Could not delete user!');
+    });
 };
 
 /**
