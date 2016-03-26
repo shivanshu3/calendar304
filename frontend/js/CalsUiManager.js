@@ -38,7 +38,19 @@ CalsUiManager.prototype.init = function() {
         _this.createCalendarClicked();
     });
 
+    // Register a callback for the delete user button:
+    $('#delete_user').click(function() {
+        _this.deleteUserClicked();
+    });
+
     this.populateUserCalendars();
+};
+
+/**
+ * Runs when the delete user button is clicked.
+ */
+CalsUiManager.prototype.deleteUserClicked = function() {
+    console.log('Delete user button clicked.');
 };
 
 /**
