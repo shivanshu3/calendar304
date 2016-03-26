@@ -88,7 +88,17 @@ CalUiManager.prototype.init = function() {
  * Runs when the delete button is pressed.
  */
 CalUiManager.prototype.deleteButtonPressed = function() {
-    console.log('Delete button pressed');
+    var deleteCalendarRequest = $.get('../api/calendar_delete.php', {
+        calendar_id: window.localStorage.user_calendar
+    });
+
+    deleteCalendarRequest.done(function(data) {
+        Utility.redirectCalendars();
+    });
+
+    deleteCalendarRequest.fail(function(data) {
+        alert('Could not delete calendar');
+    });
 };
 
 /**
