@@ -81,7 +81,7 @@ CalUiManager.prototype.init = function() {
     });
 
     // Show the calendar name:
-    $('#calendar_name').text(window.localStorage.calendar_name);
+    $('#calendar_name').val(window.localStorage.calendar_name);
 };
 
 /**
