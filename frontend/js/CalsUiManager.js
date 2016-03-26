@@ -130,7 +130,7 @@ CalsUiManager.prototype.showUserCalendars = function() {
     }
 
     // Show user's name and ID:
-    $('#user_name').text(this.userDetails.name);
+    $('#user_name').val(this.userDetails.name);
     $('#user_id').text(this.userDetails.id);
 };
 
