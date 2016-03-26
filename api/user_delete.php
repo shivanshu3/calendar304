@@ -44,6 +44,15 @@ if ($result === FALSE) {
     exit(1);
 }
 
+// Delete all the records from the Reminds table that match user_id
+$delete_user_query = "DELETE FROM `Reminds` WHERE Uid = $user_id";
+
+$result = mysqli_query($link, $delete_user_query);
+if ($result === FALSE) {
+    printf("query 3 could not be executed");
+    exit(1);
+}
+
 // Remove all records from the Reminder table which were reminders for
 // this user.
 $delete_user_query = "
@@ -52,15 +61,6 @@ DELETE FROM `Reminder` WHERE `Reminder`.`Rid` IN (
     FROM `Reminds`
     WHERE `Reminds`.`Uid` = $user_id
 )";
-
-$result = mysqli_query($link, $delete_user_query);
-if ($result === FALSE) {
-    printf("query 3 could not be executed");
-    exit(1);
-}
-
-// Delete all the records from the Reminds table that match user_id
-$delete_user_query = "DELETE FROM `Reminds` WHERE Uid = $user_id";
 
 $result = mysqli_query($link, $delete_user_query);
 if ($result === FALSE) {
