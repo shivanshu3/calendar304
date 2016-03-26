@@ -75,8 +75,20 @@ CalUiManager.prototype.init = function() {
     // Initialize the month and year input boxes:
     this.initMonthYearInput();
 
+    // Register a callback for the delete calendar button:
+    $('#delete_button').click(function() {
+        _this.deleteButtonPressed();
+    });
+
     // Show the calendar name:
     $('#calendar_name').text(window.localStorage.calendar_name);
+};
+
+/**
+ * Runs when the delete button is pressed.
+ */
+CalUiManager.prototype.deleteButtonPressed = function() {
+    console.log('Delete button pressed');
 };
 
 /**
