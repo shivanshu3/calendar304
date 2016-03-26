@@ -93,7 +93,21 @@ CalUiManager.prototype.init = function() {
  * Runs when the save name change button is pressed.
  */
 CalUiManager.prototype.saveNameChangeButtonPressed = function() {
-    console.log('Save name change button pressed');
+    var _this = this;
+    var name = $('#calendar_name').val();
+
+    var nameChangeRequest = $.get('../api/calendar_edit.php', {
+        calendar_id: window.localStorage.user_calendar,
+        name: name
+    });
+
+    nameChangeRequest.done(function(data) {
+        window.location.reload();
+    });
+
+    nameChangeRequest.fail(function(data) {
+        alert('Could not edit calendar name');
+    });
 };
 
 /**
