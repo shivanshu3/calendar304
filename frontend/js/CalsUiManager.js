@@ -43,7 +43,19 @@ CalsUiManager.prototype.init = function() {
         _this.deleteUserClicked();
     });
 
+    // Register a callback for the save name button:
+    $('#save_name').click(function() {
+        _this.saveNameClicked();
+    });
+
     this.populateUserCalendars();
+};
+
+/**
+ * Runs when the save name button is clicked.
+ */
+CalsUiManager.prototype.saveNameClicked = function() {
+    console.log('save name clicked.');
 };
 
 /**
