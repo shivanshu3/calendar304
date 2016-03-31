@@ -50,13 +50,13 @@ array_push($insert_queries,
 );
 
 array_push($insert_queries,
-    "INSERT INTO `Reminder` (`Rid`, `Type`, `Time`, `Eid`) ".
+    "INSERT INTO `Reminder` (`Rid`, `Uid`, `Type`, `Time`, `Eid`) ".
     "VALUES".
-    "('125', '0', '1462363200', '1'),".
-    "('126', '0', '1463140600', '2'),".
-    "('127', '1', '1463130000', '2'),".
-    "('131', '1', '1462000000', '2'),".
-    "('172', '0', '1463227000', '3')"
+    "('125', '3', '0', '1462363200', '1'),".
+    "('126', '5', '0', '1463140600', '2'),".
+    "('127', '4', '1', '1463130000', '2'),".
+    "('131', '1', '1', '1462000000', '2'),".
+    "('172', '2', '0', '1463227000', '3')"
 );
 
 array_push($insert_queries,
@@ -77,16 +77,6 @@ array_push($insert_queries,
     "('4', '2'),".
     "('1', '1'),".
     "('2', '4')"
-);
-
-array_push($insert_queries,
-    "INSERT INTO `Reminds` (`Rid`, `Uid`) ".
-    "VALUES".
-    "('125', '3'),".
-    "('126', '5'),".
-    "('127', '4'),".
-    "('131', '1'),".
-    "('172', '2')"
 );
 
 // Loop through all queries in $insert_queries, and run them:
