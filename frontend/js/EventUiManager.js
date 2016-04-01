@@ -60,6 +60,10 @@ EventUiManager.prototype.init = function() {
         _this.saveChangesButtonClicked();
     });
 
+    $('#remove_event_button').click(function() {
+        _this.removeEventButtonClicked();
+    });
+
     $('#delete_event_button').click(function() {
         _this.deleteEventButtonClicked();
     });
@@ -145,6 +149,27 @@ EventUiManager.prototype.saveChangesButtonClicked = function() {
 };
 
 /**
+ * Runs when remove event button is clicked.
+ */
+EventUiManager.prototype.removeEventButtonClicked = function() {
+    var event_id = window.localStorage.event_id;
+    var calendar_id = window.localStorage.user_calendar;
+
+    var deleteEventRequest = $.get('../api/event_remove.php', {
+        event_id: event_id,
+        calendar_id: calendar_id
+    });
+
+    deleteEventRequest.done(function(data) {
+        Utility.redirectEvents(false);
+    });
+
+    deleteEventRequest.fail(function(data) {
+        alert('Event could not be deleted.');
+    });
+};
+
+/**
  * Runs when delete event button is clicked.
  */
 EventUiManager.prototype.deleteEventButtonClicked = function() {
@@ -220,6 +245,15 @@ EventUiManager.prototype.showEventDetails = function() {
         $('input[name=attending][value=Yes]').prop('checked', true);
     } else {
         $('input[name=attending][value=No]').prop('checked', true);
+    }
+
+    var usersList = $('#attending_users_div ul');
+    usersList.empty();
+
+    for (var i = 0; i < this.eventDetails.users.length; i++) {
+        var user = this.eventDetails.users[i];
+        var userBullet = $('<li>' + user.name + '</li>');
+        usersList.append(userBullet);
     }
 
     this.populateRooms();
