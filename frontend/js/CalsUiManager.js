@@ -188,7 +188,7 @@ CalsUiManager.prototype.eventClicked = function(event_id) {
  */
 CalsUiManager.prototype.inviteClicked = function(event_id) {
     window.localStorage.event_id = event_id;
-    Utility.redirectEvent(false);
+    Utility.redirectInvite(false);
 };
 
 /**

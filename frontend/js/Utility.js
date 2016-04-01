@@ -238,3 +238,11 @@ Utility.redirectEvents = function(showMessage) {
 Utility.redirectEvent = function(showMessage) {
     window.location.href = '/calendar304/frontend/event.html';
 };
+
+/**
+ * Redirects to the invite page.
+ * showMessage argument is not implemented right now.
+ */
+Utility.redirectInvite = function(showMessage) {
+    window.location.href = '/calendar304/frontend/invite.html';
+};

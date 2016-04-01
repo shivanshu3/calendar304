@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Calendar 304</title>
+        <link rel="stylesheet" type="text/css" href="css/invite_style.css">
+        <script type="text/javascript" src="js/Utility.js"></script>
+        <script type="text/javascript" src="js/InviteUiManager.js"></script>
+        <script type="text/javascript" src="libraries/jquery-2.2.1.min.js">
+        </script>
+        <script type="text/javascript">
+            $(function() {
+                var uiManager = InviteUiManager.getInstance();
+                uiManager.init();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="main_app_div">
+            <h1>Calendar 304</h1>
+            <div>
+                Navigation :
+                <a href="/calendar304/frontend/index.html">Sign In</a>
+                &gt;
+                <a href="/calendar304/frontend/calendars.html">Calendars</a>
+            </div>
+            <div id="basic_details_div">
+                <h2>Event:</h2>
+                <div>
+                    <span>Name: </span>
+                    <u><span id = "event_name">foo</span></u>
+                </div>
+                <div>
+                    <span>Start Time: </span>
+                    <span id = "event_start_time">bar</span>
+                </div>
+                <div>
+                    <span>Duration (seconds): </span>
+                    <span id = "event_duration">zab</span>
+                </div>
+                <div>
+                    <span>Room Number: </span>
+                    <span id = "event_room">gee</span>
+                </div>
+                <div>
+                    Add to calendar:
+                    <select id="calendar_select"></select>
+                </div>
+                <p>
+                    <button id="accept_button" type="button">
+                        Accept
+                    </button>
+                    &nbsp;
+                    <button id="decline_button" type="button">
+                        Decline
+                    </button>
+                </p>
+            </div>
+        </div> <!-- main_app_div  -->
+    </body>
+</html>
