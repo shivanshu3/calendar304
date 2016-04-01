@@ -15,6 +15,15 @@ Given a user id, it returns the following object:
             ...
         }
     ]
+    events: [
+        {
+            id: // id of the event
+            name: // name of the event
+        },
+        {
+            ...
+        }
+    ]
     invites: [
         {
             id: // id of the event
@@ -88,6 +97,30 @@ for ($i = 0; $i < $num_rows; $i++) {
     array_push($calendars, $calendar);
 }
 $json_result['calendars'] = $calendars;
+
+// Get the events for the user:
+$query = "
+SELECT DISTINCT Event.Eid, Event.Name
+FROM Event
+WHERE Event.Uid = $id";
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+}
+
+$all_rows = $result->fetch_all();
+
+$events = array();
+$num_rows = count($all_rows);
+for ($i = 0; $i < $num_rows; $i++) {
+    $event = array();
+    $event['id'] = $all_rows[$i][0];
+    $event['name'] = $all_rows[$i][1];
+    array_push($events, $event);
+}
+$json_result['events'] = $events;
 
 // Get the invites for the user:
 $query = "

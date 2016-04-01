@@ -111,6 +111,25 @@ CalsUiManager.prototype.showUserDetails = function() {
         calsList.append(calendarBullet);
     }
 
+    var eventsList = $('#owned_events_div ul');
+    eventsList.empty();
+
+    for (var i = 0; i < this.userDetails.events.length; i++) {
+        var theEvent = this.userDetails.events[i];
+        var eventBullet = $('<li> <a href = "javascript:void(0)">' +
+                theEvent.name + '</a> </li>');
+        // Register the click callback in a self executing anonymous
+        // function because we want the calendar id to be stored in this
+        // function's closure.
+        (function() {
+            var event_id = theEvent.id;
+            eventBullet.click(function() {
+                _this.eventClicked(event_id);
+            });
+        })();
+        eventsList.append(eventBullet);
+    }
+
     var invitesList = $('#pending_invites_div ul');
     invitesList.empty();
 
@@ -124,7 +143,7 @@ CalsUiManager.prototype.showUserDetails = function() {
         (function() {
             var event_id = invite.id;
             inviteBullet.click(function() {
-                _this.eventClicked(event_id);
+                _this.inviteClicked(event_id);
             });
         })();
         invitesList.append(inviteBullet);
@@ -160,6 +179,14 @@ CalsUiManager.prototype.calendarClicked = function(cal_id) {
  * Runs when an event item is clicked.
  */
 CalsUiManager.prototype.eventClicked = function(event_id) {
+    window.localStorage.event_id = event_id;
+    Utility.redirectEvent(false);
+};
+
+/**
+ * Runs when an invite item is clicked.
+ */
+CalsUiManager.prototype.inviteClicked = function(event_id) {
     window.localStorage.event_id = event_id;
     Utility.redirectEvent(false);
 };
