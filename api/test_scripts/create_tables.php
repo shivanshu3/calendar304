@@ -80,10 +80,14 @@ CREATE TABLE Event
     StartTime INT,
     Duration INT,
     RoomNo INT,
+    Uid INT,
     PRIMARY KEY (Eid),
     FOREIGN KEY (RoomNo)
         REFERENCES Location(RoomNo)
-        ON DELETE SET NULL
+        ON DELETE SET NULL,
+    FOREIGN KEY (Uid)
+        REFERENCES User(Uid)
+        ON DELETE CASCADE
 );
 ');
 

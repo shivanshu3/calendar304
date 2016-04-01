@@ -38,7 +38,12 @@ CalsUiManager.prototype.init = function() {
         _this.createCalendarClicked();
     });
 
-    this.populateUserCalendars();
+    // Register a callback for the save name change button:
+    $('#save_name_change').click(function() {
+        _this.saveNameChangeButtonPressed();
+    });
+
+    this.populateUserDetails();
 };
 
 /**
@@ -64,9 +69,9 @@ CalsUiManager.prototype.createCalendarClicked = function() {
 };
 
 /**
- * Populates the user's calendars in this instance.
+ * Populates the user's details in this instance.
  */
-CalsUiManager.prototype.populateUserCalendars = function() {
+CalsUiManager.prototype.populateUserDetails = function() {
     var _this = this;
     var user_id = window.localStorage.user_id;
 
@@ -74,7 +79,7 @@ CalsUiManager.prototype.populateUserCalendars = function() {
 
     userDetailsRequest.done(function(data) {
         _this.userDetails = data;
-        _this.showUserCalendars();
+        _this.showUserDetails();
     });
 
     userDetailsRequest.fail(function(data) {
@@ -83,9 +88,9 @@ CalsUiManager.prototype.populateUserCalendars = function() {
 };
 
 /**
- * Shows the user's calendars on the page.
+ * Shows the user's details on the page.
  */
-CalsUiManager.prototype.showUserCalendars = function() {
+CalsUiManager.prototype.showUserDetails = function() {
     var _this = this;
     var calsList = $('#existing_calendars_div ul');
     calsList.empty();
@@ -106,8 +111,27 @@ CalsUiManager.prototype.showUserCalendars = function() {
         calsList.append(calendarBullet);
     }
 
+    var invitesList = $('#pending_invites_div ul');
+    invitesList.empty();
+
+    for (var i = 0; i < this.userDetails.invites.length; i++) {
+        var invite = this.userDetails.invites[i];
+        var inviteBullet = $('<li> <a href = "javascript:void(0)">' +
+                invite.name + '</a> </li>');
+        // Register the click callback in a self executing anonymous
+        // function because we want the event id to be stored in this
+        // function's closure.
+        (function() {
+            var event_id = invite.id;
+            inviteBullet.click(function() {
+                _this.eventClicked(event_id);
+            });
+        })();
+        invitesList.append(inviteBullet);
+    }
+
     // Show user's name and ID:
-    $('#user_name').text(this.userDetails.name);
+    $('#user_name').val(this.userDetails.name);
     $('#user_id').text(this.userDetails.id);
 };
 
@@ -130,4 +154,33 @@ CalsUiManager.prototype.calendarClicked = function(cal_id) {
 
     // Redirect to the calendar page:
     Utility.redirectCalendar(false);
+};
+
+/**
+ * Runs when an event item is clicked.
+ */
+CalsUiManager.prototype.eventClicked = function(event_id) {
+    window.localStorage.event_id = event_id;
+    Utility.redirectEvent(false);
+};
+
+/**
+ * Runs when the save name change button is pressed.
+ */
+CalsUiManager.prototype.saveNameChangeButtonPressed = function() {
+    var _this = this;
+    var name = $('#user_name').val();
+
+    var nameChangeRequest = $.get('../api/user_edit.php', {
+        user_id: window.localStorage.user_id,
+        name: name
+    });
+
+    nameChangedRequest.done(function(data) {
+        window.location.reload();
+    });
+
+    nameChangeRequest.fail(function(data) {
+        alert('Could not edit user name');
+    });
 };

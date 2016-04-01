@@ -1,10 +1,9 @@
 <?php
 
 /*
- * Deletes a user
+ * 
  *
  * The returned object looks like the following:
- *
  * {
  *     success: true/false
  * }
@@ -13,17 +12,16 @@
 require 'database_connection.php';
 require 'utility.php';
 
-$user_id = $_GET['user_id'];
+$field = $_GET['field'];
 
 // This will store the final result:
 $json_result = array();
 
-// Delete the record from the User table
-$delete_user_query = "DELETE FROM `User` WHERE Uid = $user_id";
+$something_query = "$field";
 
-$result = mysqli_query($link, $delete_user_query);
+$result = mysqli_query($link, $something_query);
 if ($result === FALSE) {
-    printf("query could not be executed");
+    printf("query could not be executed.\n");
     exit(1);
 }
 
@@ -31,3 +29,4 @@ $json_result['success'] = true;
 output_json($json_result);
 
 ?>
+

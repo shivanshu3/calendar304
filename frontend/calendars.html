@@ -21,22 +21,34 @@
                 <a href="/calendar304/frontend/index.html">Sign In</a>
             </div>
             <p>
-                <span>Name: </span>
-                <u><span id="user_name">foo</span></u>
-                <span>, ID: </span>
+                <span>ID: </span>
                 <u><span id="user_id">bar</span></u>
+                <span>, Name: </span>
+                <input id="user_name" type="text" val>
+                <button id="save_name_change" type="button">
+                    Save Name Change
+                </button>
             </p>
+            <h2>Calendars</h2>
             <div id="existing_calendars_div">
-                <h2>Your Calendars:</h2>
+                <h3>Your Calendars:</h3>
                 <ul>
                     <li>Foo</li>
                     <li>Bar</li>
                 </ul>
             </div>
             <div id="create_calendar_div">
-                <h2>Create Calendar:</h2>
+                <h3>Create Calendar:</h3>
                 Name: <input type="text">
                 <button type="button">Create</button>
+            </div>
+            <h2>Invitations</h2>
+            <div id="pending_invites_div">
+                <h3>Pending Invitations:</h3>
+                <ul>
+                    <li>Foo</li>
+                    <li>Bar</li>
+                </ul>
             </div>
         </div> <!-- main_app_div  -->
     </body>

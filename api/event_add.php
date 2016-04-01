@@ -19,6 +19,7 @@ $calendar_id = $_GET['calendar_id'];
 // This will store the final result:
 $json_result = array();
 
+// Add a record to the Contains table
 $event_add_query = "
 INSERT INTO `Contains` (`Cid`, `Eid`)
 VALUES ($calendar_id, $event_id)";
@@ -29,6 +30,7 @@ if ($result === FALSE) {
     exit(1);
 }
 
+// Remove any pending invites for this calendar's owner
 $event_add_query = "
 DELETE FROM `Invite` WHERE `Uid` IN (
     SELECT DISTINCT `Calendar`.`Uid`
