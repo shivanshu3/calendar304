@@ -68,6 +68,14 @@ EventUiManager.prototype.init = function() {
         _this.deleteEventButtonClicked();
     });
 
+    $('#delete_reminder_button').click(function() {
+        _this.deleteReminderButtonClicked();
+    });
+    
+    $('#save_reminder_button').click(function() {
+        _this.saveReminderButtonClicked();
+    });
+    
     // Populate the event details in this instance:
     this.populateEventDetails();
 };
@@ -188,7 +196,67 @@ EventUiManager.prototype.deleteEventButtonClicked = function() {
 };
 
 /**
- * Downloads the event details from the server and stores them in this
+ * Runs when delete reminder button is clicked.
+ */
+EventUiManager.prototype.deleteReminderButtonClicked = function() {
+    var _this = this;
+
+    // Its possible that reminder_id has not been set before if
+    // delete reminder is pressed before save reminder. This is okay
+    // as rid would be 'undefined' and since undefined is not in our
+    // reminder table, the button press effectively does nothing
+    var rid = window.localStorage.reminder_id;
+    var uid = window.localStorage.user_id;
+
+    var deleteReminderRequest = $.get('../api/reminder_delete.php', {r_id: rid, user_id: uid});
+
+    deleteReminderRequest.done(function(data) {
+        //Set back to undefined
+        window.localStorage.reminder_id = (function(){return;})();
+        window.location.reload();
+    });
+
+    deleteReminderRequest.fail(function(data) {
+        alert('Reminder could not be deleted.');
+    });
+};
+
+/**
+ * Runs when reminder is set.
+ */
+EventUiManager.prototype.saveReminderButtonClicked = function() {
+    var _this = this;
+
+    var rid = window.localStorage.reminder_id;
+    var uid = window.localStorage.user_id;
+    var rTime = $('#reminder_date').val();
+    var eid = window.localStorage.event_id;
+    var setReminderRequest;
+
+    if(rid !== "undefined"){
+       setReminderRequest = $.get('../api/reminder_edit.php', {r_id: rid, user_id: uid});
+    }else{
+        setReminderRequest = $.get('../api/reminder_create.php', {
+            user_id: uid,
+            type: 0,
+            time: rTime,
+            event_id: eid
+        });
+     }
+
+    setReminderRequest.done(function(data) {
+        window.localStorage.reminder_id = data.id;
+        window.alert(data.id);
+        window.location.reload();
+    });
+
+    setReminderRequest.fail(function(data) {
+        alert('Reminder could not be deleted.');
+    });
+};
+
+/**
+ * Downloads the event  from the server and stores them in this
  * instance.
  */
 EventUiManager.prototype.populateEventDetails = function() {
