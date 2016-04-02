@@ -68,8 +68,13 @@ EventUiManager.prototype.init = function() {
         _this.deleteEventButtonClicked();
     });
 
+    $('#invite_user_button').click(function() {
+        _this.inviteUserButtonClicked();
+    });
+
     // Populate the event details in this instance:
     this.populateEventDetails();
+    this.populateInviteCandidates();
 };
 
 /**
@@ -188,6 +193,28 @@ EventUiManager.prototype.deleteEventButtonClicked = function() {
 };
 
 /**
+ * Runs when invite user button is clicked.
+ */
+EventUiManager.prototype.inviteUserButtonClicked = function() {
+    var userDropdown = $('#user_select');
+    var user_id = userDropdown.val();
+    var event_id = window.localStorage.event_id;
+
+    var inviteUserRequest = $.get('../api/invite_user.php', {
+        event_id: event_id,
+        user_id: user_id
+    });
+
+    inviteUserRequest.done(function(data) {
+        window.location.reload();
+    });
+
+    inviteUserRequest.fail(function(data) {
+        alert('User could not be invited.');
+    });
+};
+
+/**
  * Downloads the event details from the server and stores them in this
  * instance.
  */
@@ -264,6 +291,33 @@ EventUiManager.prototype.showEventDetails = function() {
 
     this.populateRooms();
 };
+
+/**
+ * Populates the user dropdown for invitations
+ */
+EventUiManager.prototype.populateInviteCandidates = function() {
+    var _this = this;
+    var event_id = window.localStorage.event_id;
+
+    var candidatesRequest = $.get('../api/invite_candidates.php', {
+        event_id: event_id
+    });
+
+    candidatesRequest.done(function(data) {
+        var usersDropdown = $('#user_select');
+        usersDropdown.empty();
+
+        for (var i = 0; i < data.length; i++) {
+            var user = data[i];
+            var userItem = $('<option>' + user.id + '</option>');
+            usersDropdown.append(userItem);
+        }
+    });
+
+    candidatesRequest.fail(function(data) {
+        alert('Invite candidates could not be downloaded.');
+    });
+}
 
 /**
  * Gets the room numbers from the server and stores them in this instance.
