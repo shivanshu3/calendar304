@@ -247,6 +247,15 @@ EventUiManager.prototype.showEventDetails = function() {
         $('input[name=attending][value=No]').prop('checked', true);
     }
 
+    // Show the proportion of users attending versus invited
+    var numAttending = $('#num_attending_invited');
+    var numString = this.eventDetails.attending;
+    numString .= " attending out of ";
+    numString .= this.eventDetails.invited;
+    numString .= " invited";
+    numAttending.val(numString);
+
+    // Get the attending users
     var usersList = $('#attending_users_div ul');
     usersList.empty();
 

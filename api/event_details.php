@@ -12,6 +12,8 @@ Given an event id, it returns the following object:
         room_no:
         max_occ:
     }
+    invited: // int
+    attending: // int
     users: [
         {
             id:
@@ -91,6 +93,42 @@ $all_rows = $result->fetch_all();
 $json_result['location'] = array();
 $json_result['location']['room_no'] = $location_id;
 $json_result['location']['max_occ'] = $all_rows[0][0];
+
+// Find the number of users invited:
+$query = '
+SELECT COUNT(User.Uid)
+FROM User, Invite
+WHERE User.Uid = Invite.Uid AND Attends.Eid = '.$id;
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+} else {
+    // printf("query successfully executed.\n");
+}
+
+$all_rows = $result->fetch_all();
+
+$json_result['num_invited'] = $all_rows[0][0];
+
+// Find the number of users attending:
+$query = '
+SELECT COUNT(User.Uid)
+FROM User, Attends
+WHERE User.Uid = Attends.Uid AND Attends.Eid = '.$id;
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+} else {
+    // printf("query successfully executed.\n");
+}
+
+$all_rows = $result->fetch_all();
+
+$json_result['num_attending'] = $all_rows[0][0];
 
 // Find the users attending this event:
 $query = '
