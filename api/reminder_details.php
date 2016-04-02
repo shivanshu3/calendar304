@@ -19,7 +19,7 @@ given rid and uid does not exist.
 require 'database_connection.php';
 require 'utility.php';
 
-$r_id = $_GET['reminder_id'];
+$e_id = $_GET['event_id'];
 $u_id = $_GET['user_id'];
 
 // This will store the final result
@@ -28,7 +28,7 @@ $json_result = array();
 $query = "
     SELECT *
     FROM Reminder
-    WHERE Rid = '$r_id' AND Uid = '$u_id'";
+    WHERE Eid = '$e_id' AND Uid = '$u_id'";
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
@@ -45,8 +45,8 @@ if (count($all_rows) == 0) {
 }
 
 // Constructing the json object:
-$json_result['rid'] = $r_id;
-$json_result['uid'] = $u_id;
+$json_result['rid'] = $all_rows[0][0];
+$json_result['uid'] = $all_rows[0][1];
 $json_result['type'] = $all_rows[0][2];
 $json_result['time'] = $all_rows[0][3];
 $json_result['eid'] = $all_rows[0][4];

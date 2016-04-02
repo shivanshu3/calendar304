@@ -78,6 +78,9 @@ EventUiManager.prototype.init = function() {
     
     // Populate the event details in this instance:
     this.populateEventDetails();
+
+    //Populate reminder details
+    this.populateReminderDetails();
 };
 
 /**
@@ -246,12 +249,36 @@ EventUiManager.prototype.saveReminderButtonClicked = function() {
 
     setReminderRequest.done(function(data) {
         window.localStorage.reminder_id = data.id;
-        window.alert(data.id);
         window.location.reload();
     });
 
     setReminderRequest.fail(function(data) {
         alert('Reminder could not be deleted.');
+    });
+};
+
+/**
+ * Downloads the reminders  from the server and stores them in this
+ * instance.
+ */
+EventUiManager.prototype.populateReminderDetails = function() {
+    var _this = this;
+    var eid = window.localStorage.event_id;
+    var uid = window.localStorage.user_id;
+
+    var eventDetailsRequest = $.get('../api/reminder_details.php', {
+        event_id: eid,
+        user_id: uid
+    });
+
+    eventDetailsRequest.done(function(data) {
+        var time = data.time;
+        var dateBox = $('#reminder_date');
+        dateBox.val(time);
+    });
+
+    eventDetailsRequest.fail(function(data) {
+        alert('Event details could not be downloaded.');
     });
 };
 
