@@ -1,10 +1,9 @@
 <?php
 
 /*
- * Deletes a user
+ * Create an invitation for a user to an event
  *
  * The returned object looks like the following:
- *
  * {
  *     success: true/false
  * }
@@ -14,16 +13,18 @@ require 'database_connection.php';
 require 'utility.php';
 
 $user_id = $_GET['user_id'];
+$event_id = $_GET['event_id'];
 
 // This will store the final result:
 $json_result = array();
 
-// Delete the record from the User table
-$delete_user_query = "DELETE FROM `User` WHERE Uid = $user_id";
+$invite_user_query = "
+INSERT INTO `Invite` (`Uid`, `Eid`)
+VALUES ($user_id, $event_id)";
 
-$result = mysqli_query($link, $delete_user_query);
+$result = mysqli_query($link, $invite_user_query);
 if ($result === FALSE) {
-    printf("query could not be executed");
+    printf("query could not be executed.\n");
     exit(1);
 }
 
@@ -31,3 +32,4 @@ $json_result['success'] = true;
 output_json($json_result);
 
 ?>
+

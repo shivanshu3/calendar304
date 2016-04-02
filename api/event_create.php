@@ -27,8 +27,8 @@ $queries = [];
 
 // Insert a new record in the Event table:
 $new_event_query = "
-INSERT INTO Event (Name, StartTime, Duration, RoomNo)
-VALUES ('$name', '$start_time', '$duration', '$room_no')";
+INSERT INTO Event (Name, StartTime, Duration, RoomNo, Uid)
+VALUES ('$name', '$start_time', '$duration', '$room_no', '$user_id')";
 
 $result = mysqli_query($link, $new_event_query);
 if ($result === FALSE) {

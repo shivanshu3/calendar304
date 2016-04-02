@@ -18,6 +18,7 @@ $drop_tables_queries = array(
 'DROP TABLE IF EXISTS Calendar;',
 'DROP TABLE IF EXISTS Contains;',
 'DROP TABLE IF EXISTS Event;',
+'DROP TABLE IF EXISTS Invite;',
 'DROP TABLE IF EXISTS Location;',
 'DROP TABLE IF EXISTS Reminder;',
 'DROP TABLE IF EXISTS Reminds;',
@@ -55,7 +56,9 @@ CREATE TABLE Calendar
     Name CHAR(50),
     Uid INT,
     PRIMARY KEY (Cid),
-    FOREIGN KEY (Uid) REFERENCES User(Uid),
+    FOREIGN KEY (Uid)
+        REFERENCES User(Uid)
+        ON DELETE CASCADE,
     UNIQUE (Uid, Name)
 );
 ');
@@ -77,8 +80,14 @@ CREATE TABLE Event
     StartTime INT,
     Duration INT,
     RoomNo INT,
+    Uid INT,
     PRIMARY KEY (Eid),
-    FOREIGN KEY (RoomNo) REFERENCES Location(RoomNo)
+    FOREIGN KEY (RoomNo)
+        REFERENCES Location(RoomNo)
+        ON DELETE SET NULL,
+    FOREIGN KEY (Uid)
+        REFERENCES User(Uid)
+        ON DELETE CASCADE
 );
 ');
 
@@ -86,12 +95,33 @@ array_push($table_create_queries, '
 CREATE TABLE Reminder
 (
     Rid INT,
+    Uid INT,
     Type INT,
     Time INT,
     Eid INT,
-    PRIMARY KEY (Rid),
-    FOREIGN KEY (Eid) REFERENCES Event(Eid),
+    PRIMARY KEY (Rid, Uid),
+    FOREIGN KEY (Eid)
+        REFERENCES Event(Eid)
+        ON DELETE CASCADE,
+    FOREIGN KEY (Uid)
+        REFERENCES User(Uid)
+        ON DELETE CASCADE,
     UNIQUE (Eid, Time, Type)
+);
+');
+
+array_push($table_create_queries, '
+CREATE TABLE Invite
+(
+    Uid INT,
+    Eid INT,
+    PRIMARY KEY (Uid, Eid),
+    FOREIGN KEY (Uid)
+        REFERENCES User(Uid)
+        ON DELETE CASCADE,
+    FOREIGN KEY (Eid)
+        REFERENCES Event(Eid)
+        ON DELETE CASCADE
 );
 ');
 
@@ -101,8 +131,12 @@ CREATE TABLE Contains
     Cid INT,
     Eid INT,
     PRIMARY KEY (Cid, Eid),
-    FOREIGN KEY (Cid) REFERENCES Calendar(Cid),
-    FOREIGN KEY (Eid) REFERENCES Event(Eid)
+    FOREIGN KEY (Cid)
+        REFERENCES Calendar(Cid)
+        ON DELETE CASCADE,
+    FOREIGN KEY (Eid)
+        REFERENCES Event(Eid)
+        ON DELETE CASCADE
 );
 ');
 
@@ -112,19 +146,12 @@ CREATE TABLE Attends
     Uid INT,
     Eid INT,
     PRIMARY KEY (Uid, Eid),
-    FOREIGN KEY (Uid) REFERENCES User(Uid),
-    FOREIGN KEY (Eid) REFERENCES Event(Eid)
-);
-');
-
-array_push($table_create_queries, '
-CREATE TABLE Reminds
-(
-    Rid INT,
-    Uid INT,
-    PRIMARY KEY (Rid, Uid),
-    FOREIGN KEY (Rid) REFERENCES Reminder(Rid),
-    FOREIGN KEY (Uid) REFERENCES User(Uid)
+    FOREIGN KEY (Uid)
+        REFERENCES User(Uid)
+        ON DELETE CASCADE,
+    FOREIGN KEY (Eid)
+        REFERENCES Event(Eid)
+        ON DELETE CASCADE
 );
 ');
 

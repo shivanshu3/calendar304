@@ -40,23 +40,23 @@ array_push($insert_queries,
 );
 
 array_push($insert_queries,
-    "INSERT INTO `Event` (`Eid`, `Name`, `StartTime`, `Duration`, `RoomNo`) ".
+    "INSERT INTO `Event` (`Eid`, `Name`, `StartTime`, `Duration`, `RoomNo`, `Uid`) ".
     "VALUES".
-    "('1', 'Sprint 1 Planning', '1462363200', '900', '1'),".
-    "('2', 'Sprint 1 Retrospective', '1463140800', '7200', '1'),".
-    "('3', 'Welcoming Party', '1463227200', '7200', '5'),".
-    "('4', 'Release Party', '1465905600', '7200', '5'),".
-    "('5', 'Interview with Idris Elba', '1462276800', '3600', '2')"
+    "('1', 'Sprint 1 Planning', '1462363200', '900', '1', '1'),".
+    "('2', 'Sprint 1 Retrospective', '1463140800', '7200', '1', '3'),".
+    "('3', 'Welcoming Party', '1463227200', '7200', '5', '2'),".
+    "('4', 'Release Party', '1465905600', '7200', '5', '5'),".
+    "('5', 'Interview with Idris Elba', '1462276800', '3600', '2', '4')"
 );
 
 array_push($insert_queries,
-    "INSERT INTO `Reminder` (`Rid`, `Type`, `Time`, `Eid`) ".
+    "INSERT INTO `Reminder` (`Rid`, `Uid`, `Type`, `Time`, `Eid`) ".
     "VALUES".
-    "('125', '0', '1462363200', '1'),".
-    "('126', '0', '1463140600', '2'),".
-    "('127', '1', '1463130000', '2'),".
-    "('131', '1', '1462000000', '2'),".
-    "('172', '0', '1463227000', '3')"
+    "('125', '3', '0', '1462363200', '1'),".
+    "('126', '5', '0', '1463140600', '2'),".
+    "('127', '4', '1', '1463130000', '2'),".
+    "('131', '1', '1', '1462000000', '2'),".
+    "('172', '2', '0', '1463227000', '3')"
 );
 
 array_push($insert_queries,
@@ -77,16 +77,6 @@ array_push($insert_queries,
     "('4', '2'),".
     "('1', '1'),".
     "('2', '4')"
-);
-
-array_push($insert_queries,
-    "INSERT INTO `Reminds` (`Rid`, `Uid`) ".
-    "VALUES".
-    "('125', '3'),".
-    "('126', '5'),".
-    "('127', '4'),".
-    "('131', '1'),".
-    "('172', '2')"
 );
 
 // Loop through all queries in $insert_queries, and run them:

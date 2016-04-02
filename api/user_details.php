@@ -15,6 +15,24 @@ Given a user id, it returns the following object:
             ...
         }
     ]
+    events: [
+        {
+            id: // id of the event
+            name: // name of the event
+        },
+        {
+            ...
+        }
+    ]
+    invites: [
+        {
+            id: // id of the event
+            name: // name of the event
+        },
+        {
+            ...
+        }
+    ]
 }
 
 The returned object will be empty - with no keys if a user with the
@@ -79,6 +97,55 @@ for ($i = 0; $i < $num_rows; $i++) {
     array_push($calendars, $calendar);
 }
 $json_result['calendars'] = $calendars;
+
+// Get the events for the user:
+$query = "
+SELECT DISTINCT Event.Eid, Event.Name
+FROM Event
+WHERE Event.Uid = $id";
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+}
+
+$all_rows = $result->fetch_all();
+
+$events = array();
+$num_rows = count($all_rows);
+for ($i = 0; $i < $num_rows; $i++) {
+    $event = array();
+    $event['id'] = $all_rows[$i][0];
+    $event['name'] = $all_rows[$i][1];
+    array_push($events, $event);
+}
+$json_result['events'] = $events;
+
+// Get the invites for the user:
+$query = "
+SELECT DISTINCT Invite.Eid, Event.Name
+FROM Invite, Event
+WHERE Invite.Uid = $id
+AND Invite.Eid = Event.Eid";
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+}
+
+$all_rows = $result->fetch_all();
+
+$invites = array();
+$num_rows = count($all_rows);
+for ($i = 0; $i < $num_rows; $i++) {
+    $invite = array();
+    $invite['id'] = $all_rows[$i][0];
+    $invite['name'] = $all_rows[$i][1];
+    array_push($invites, $invite);
+}
+$json_result['invites'] = $invites;
 
 output_json($json_result);
 
