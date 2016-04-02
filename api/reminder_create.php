@@ -23,12 +23,12 @@ $json_result = array();
 // This contains all the sql queries:
 $queries = [];
 
-// Insert a new record in the Event table:
-$new_event_query = "
+// Insert a new record in the Reminder table:
+$new_reminder_query = "
 INSERT INTO Reminder (Uid, Type, Time, Eid)
 VALUES ('$user_id', '$type', '$time', '$event_id')";
 
-$result = mysqli_query($link, $new_event_query);
+$result = mysqli_query($link, $new_reminder_query);
 if ($result === FALSE) {
     printf("query could not be executed.\n");
     exit(1);
