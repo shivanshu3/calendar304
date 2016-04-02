@@ -249,9 +249,9 @@ EventUiManager.prototype.showEventDetails = function() {
 
     // Show the proportion of users attending versus invited
     var numAttending = $('#num_attending_invited');
-    var numString = this.eventDetails.attending;
+    var numString = this.eventDetails.num_attending;
     numString .= " attending out of ";
-    numString .= this.eventDetails.invited;
+    numString .= this.eventDetails.num_invited;
     numString .= " invited";
     numAttending.val(numString);
 

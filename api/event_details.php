@@ -12,8 +12,8 @@ Given an event id, it returns the following object:
         room_no:
         max_occ:
     }
-    invited: // int
-    attending: // int
+    num_invited: // int
+    num_attending: // int
     users: [
         {
             id:
@@ -98,7 +98,7 @@ $json_result['location']['max_occ'] = $all_rows[0][0];
 $query = '
 SELECT COUNT(User.Uid)
 FROM User, Invite
-WHERE User.Uid = Invite.Uid AND Attends.Eid = '.$id;
+WHERE User.Uid = Invite.Uid AND Invite.Eid = '.$id;
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
