@@ -94,7 +94,7 @@ CREATE TABLE Event
 array_push($table_create_queries, '
 CREATE TABLE Reminder
 (
-    Rid INT,
+    Rid INT AUTO_INCREMENT,
     Uid INT,
     Type INT,
     Time INT,
