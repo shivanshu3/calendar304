@@ -53,6 +53,7 @@ require 'database_connection.php';
 require 'utility.php';
 
 $id = $_GET['id'];
+$cur_time = $_GET['cur_time'];
 
 // This will store the final result
 $json_result = array();
@@ -161,7 +162,7 @@ $json_result['invites'] = $invites;
 $query = "
 SELECT DISTINCT Reminder.Eid, Reminder.Time, Event.Name
 FROM  Reminder, Event
-WHERE Reminder.Uid = $id AND Reminder.Eid = Event.Eid
+WHERE Reminder.Time < $cur_time AND Reminder.Uid = $id AND Reminder.Eid = Event.Eid
 ORDER BY Reminder.Time ASC";
 
 $result = mysqli_query($link, $query);
