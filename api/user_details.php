@@ -1,7 +1,8 @@
 <?php
 
 /*
-Given a user id, it returns the following object:
+Given a user id, and the MILLISECONDS since epoch, it returns the following
+object:
 
 {
     id: // the id you supplied
@@ -53,7 +54,7 @@ require 'database_connection.php';
 require 'utility.php';
 
 $id = $_GET['id'];
-$cur_time = $_GET['cur_time'];
+$cur_time = $_GET['cur_time']; // MILLISECONDS since epoch
 
 // This will store the final result
 $json_result = array();
