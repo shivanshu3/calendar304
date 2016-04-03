@@ -205,8 +205,8 @@ EventUiManager.prototype.deleteEventButtonClicked = function() {
  * Runs when invite user button is clicked.
  */
 EventUiManager.prototype.inviteUserButtonClicked = function() {
-    var userDropdown = $('#user_select');
-    var user_id = userDropdown.val();
+    var userDropdown = $('#user_select option:selected');
+    var user_id = userDropdown.attr('user_id');
     var event_id = window.localStorage.event_id;
 
     var inviteUserRequest = $.get('../api/invite_user.php', {
@@ -451,7 +451,9 @@ EventUiManager.prototype.populateInviteCandidates = function() {
 
         for (var i = 0; i < data.length; i++) {
             var user = data[i];
-            var userItem = $('<option>' + user.id + '</option>');
+            var userItem = $('<option>');
+            userItem.attr('user_id', user.id);
+            userItem.text(user.id + ' - ' + user.name);
             usersDropdown.append(userItem);
         }
     });
