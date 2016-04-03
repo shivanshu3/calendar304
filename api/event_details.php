@@ -14,6 +14,7 @@ Given an event id, it returns the following object:
     }
     num_invited: // int
     num_attending: // int
+    num_pending: // int
     users: [
         {
             id:
@@ -97,8 +98,10 @@ $json_result['location']['max_occ'] = $all_rows[0][0];
 // Find the number of users invited:
 $query = '
 SELECT COUNT(User.Uid)
-FROM User, Invite
-WHERE User.Uid = Invite.Uid AND Invite.Eid = '.$id;
+FROM User, Calendar, Contains
+WHERE User.Uid = Calendar.Uid
+AND Calendar.Cid = Contains.Cid
+AND Contains.Eid = '.$id;
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {
@@ -129,6 +132,24 @@ if ($result === FALSE) {
 $all_rows = $result->fetch_all();
 
 $json_result['num_attending'] = $all_rows[0][0];
+
+// Find the number of pending invitations:
+$query = '
+SELECT COUNT(User.Uid)
+FROM User, Invite
+WHERE User.Uid = Invite.Uid AND Invite.Eid = '.$id;
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+} else {
+    // printf("query successfully executed.\n");
+}
+
+$all_rows = $result->fetch_all();
+
+$json_result['num_pending'] = $all_rows[0][0];
 
 // Find the users attending this event:
 $query = '
