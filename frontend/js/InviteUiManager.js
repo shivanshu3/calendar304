@@ -58,8 +58,8 @@ InviteUiManager.prototype.init = function() {
  * Runs when accept button is clicked.
  */
 InviteUiManager.prototype.acceptButtonClicked = function() {
-    var calendarDropdown = $('#calendar_select');
-    var calendar = calendarDropdown.val();
+    var calendarDropdown = $('#calendar_select option:selected');
+    var calendar = calendarDropdown.attr('calendar_id');
 
     var updateEventRequest = $.get('../api/event_add.php', {
         event_id: window.localStorage.event_id,
@@ -164,12 +164,14 @@ InviteUiManager.prototype.populateCalendars = function() {
  * Fills the calendar numbers in the dropdown
  */
 InviteUiManager.prototype.showCalendars = function() {
-    var calendarsDropdown = $('#basic_details_div select');
+    var calendarsDropdown = $('#calendar_select');
     calendarsDropdown.empty();
 
     for (var i = 0; i < this.calendars.length; i++) {
         var calendar = this.calendars[i];
-        var calendarItem = $('<option>' + calendar.id + '</option>');
+        var calendarItem = $('<option>');
+        calendarItem.attr('calendar_id', calendar.id);
+        calendarItem.text(calendar.id + ' - ' + calendar.name);
         calendarsDropdown.append(calendarItem);
     }
 };
