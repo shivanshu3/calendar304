@@ -72,9 +72,20 @@ EventUiManager.prototype.init = function() {
         _this.inviteUserButtonClicked();
     });
 
+    $('#delete_reminder_button').click(function() {
+        _this.deleteReminderButtonClicked();
+    });
+    
+    $('#save_reminder_button').click(function() {
+        _this.saveReminderButtonClicked();
+    });
+    
     // Populate the event details in this instance:
     this.populateEventDetails();
-    this.populateInviteCandidates();
+
+    //Populate reminder details
+    this.populateReminderDetails();
+
 };
 
 /**
@@ -213,6 +224,133 @@ EventUiManager.prototype.inviteUserButtonClicked = function() {
         alert('User could not be invited.');
     });
 };
+/*
+ * Runs when delete reminder button is clicked.
+ */
+EventUiManager.prototype.deleteReminderButtonClicked = function() {
+    var _this = this;
+
+    // Its possible that reminder_id has not been set before if
+    // delete reminder is pressed before save reminder. This is okay
+    // as rid would be 'undefined' and since undefined is not in our
+    // reminder table, the button press effectively does nothing
+    var rid = window.localStorage.reminder_id;
+    var uid = window.localStorage.user_id;
+
+    var deleteReminderRequest = $.get('../api/reminder_delete.php', {r_id: rid, user_id: uid});
+
+    deleteReminderRequest.done(function(data) {
+        //Set back to undefined
+        window.localStorage.reminder_id = (function(){return;})();
+        window.location.reload();
+    });
+
+    deleteReminderRequest.fail(function(data) {
+        alert('Reminder could not be deleted.');
+    });
+};
+
+/**
+ * Runs when reminder is set.
+ */
+EventUiManager.prototype.saveReminderButtonClicked = function() {
+    var _this = this;
+
+    var rid = window.localStorage.reminder_id;
+    var uid = window.localStorage.user_id;
+    var rValue = $('#reminder_date').val();
+    var eid = window.localStorage.event_id;
+    var setReminderRequest;
+    var y = window.localStorage.year;
+    var m = window.localStorage.month;
+    var d = window.localStorage.date;
+    var reminderDate = new Date(y,m-1,d);
+
+    if(rValue === ""){
+        return;
+    }else if(rValue === "1d"){
+        reminderDate.setDate(reminderDate.getDate() - 1);
+    }else if(rValue === "2d") {
+        reminderDate.setDate(reminderDate.getDate() - 2);
+    }else if(rValue === "1w") {
+        reminderDate.setDate(reminderDate.getDate() - 7);
+    }else if(rValue === "1m") {
+        reminderDate.setMonth(reminderDate.getMonth() - 1);
+    }
+
+    if(rid !== "undefined"){
+       setReminderRequest = $.get('../api/reminder_edit.php', {
+           reminder_id: rid,
+           user_id: uid,
+           type: 0,
+           time: reminderDate.getTime()
+       });
+    }else{
+        setReminderRequest = $.get('../api/reminder_create.php', {
+            user_id: uid,
+            type: 0,
+            time: reminderDate.getTime(),
+            event_id: eid
+        });
+     }
+
+    setReminderRequest.done(function(data) {
+        window.localStorage.reminder_id = data.id;
+        window.location.reload();
+    });
+
+    setReminderRequest.fail(function(data) {
+        alert('Reminder could not be deleted.');
+    });
+};
+
+/**
+ * Downloads the reminders  from the server and stores them in this
+ * instance.
+ */
+EventUiManager.prototype.populateReminderDetails = function() {
+    var _this = this;
+    var eid = window.localStorage.event_id;
+    var uid = window.localStorage.user_id;
+
+    var eventDetailsRequest = $.get('../api/reminder_details.php', {
+        event_id: eid,
+        user_id: uid
+    });
+
+    eventDetailsRequest.done(function(data) {
+        window.localStorage.reminder_id = data.rid;
+        var y = window.localStorage.year;
+        var m = window.localStorage.month;
+        var d = window.localStorage.date;
+        var currentDate = new Date(y,m-1,d);
+        var reminderDate = new Date(parseInt(data.time));
+
+        // Caclualte difference in days
+        var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+        var utc1 = Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+        var utc2 = Date.UTC(reminderDate.getFullYear(), reminderDate.getMonth(), reminderDate.getDate());
+        var diff = Math.abs(Math.floor((utc2 - utc1) / (1000*60*60*24)));
+
+        var dateBox = $('#reminder_date');
+
+        if(diff === 1){
+            dateBox.val("1d");
+        }else if(diff === 2){
+            dateBox.val("2d");
+        }else if(diff === 7){
+            dateBox.val("1w");
+        }else if(diff >= 29){
+            dateBox.val("1m");
+        }else{
+            dateBox.val("");
+        }
+    });
+
+    eventDetailsRequest.fail(function(data) {
+        alert('Event details could not be downloaded.');
+    });
+};
 
 /**
  * Downloads the event details from the server and stores them in this
@@ -317,7 +455,7 @@ EventUiManager.prototype.populateInviteCandidates = function() {
     candidatesRequest.fail(function(data) {
         alert('Invite candidates could not be downloaded.');
     });
-}
+};
 
 /**
  * Gets the room numbers from the server and stores them in this instance.
@@ -341,7 +479,7 @@ EventUiManager.prototype.populateRooms = function() {
  * which is in the event.
  */
 EventUiManager.prototype.showRooms = function() {
-    var roomsDropdown = $('#basic_details_div select');
+    var roomsDropdown = $('#room_div select');
     roomsDropdown.empty();
 
     for (var i = 0; i < this.rooms.length; i++) {

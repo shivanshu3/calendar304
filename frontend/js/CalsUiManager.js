@@ -118,7 +118,7 @@ CalsUiManager.prototype.populateUserDetails = function() {
     var _this = this;
     var user_id = window.localStorage.user_id;
 
-    var userDetailsRequest = $.get('../api/user_details.php', {id: user_id});
+    var userDetailsRequest = $.get('../api/user_details.php', {id: user_id, cur_time: Date.now()});
 
     userDetailsRequest.done(function(data) {
         _this.userDetails = data;
@@ -192,6 +192,25 @@ CalsUiManager.prototype.showUserDetails = function() {
         invitesList.append(inviteBullet);
     }
 
+    var remindersList = $('#reminders_div ul');
+    remindersList.empty();
+
+    for (var i = 0; i < this.userDetails.reminders.length; i++) {
+        var reminder = this.userDetails.reminders[i];
+        var reminderBullet = $('<li> <a href = "javascript:void(0)">' +
+                reminder.name + ' on ' + new Date(parseInt(reminder.time)).toDateString() + '</a> </li>');
+        // Register the click callback in a self executing anonymous
+        // function because we want the event id to be stored in this
+        // function's closure.
+        (function() {
+            var event_id = reminder.eid;
+            reminderBullet.click(function() {
+                _this.reminderClicked(event_id);
+            });
+        })();
+        remindersList.append(reminderBullet);
+    }
+
     // Show user's name and ID:
     $('#user_name').val(this.userDetails.name);
     $('#user_id').text(this.userDetails.id);
@@ -232,4 +251,33 @@ CalsUiManager.prototype.eventClicked = function(event_id) {
 CalsUiManager.prototype.inviteClicked = function(event_id) {
     window.localStorage.event_id = event_id;
     Utility.redirectInvite(false);
+};
+
+/**
+ * Runs when a reminder item is clicked.
+ */
+CalsUiManager.prototype.reminderClicked = function(event_id) {
+    window.localStorage.event_id = event_id;
+    Utility.redirectEvent(false);
+};
+
+/**
+ * Runs when the save name change button is pressed.
+ */
+CalsUiManager.prototype.saveNameChangeButtonPressed = function() {
+    var _this = this;
+    var name = $('#user_name').val();
+
+    var nameChangeRequest = $.get('../api/user_edit.php', {
+        user_id: window.localStorage.user_id,
+        name: name
+    });
+
+    nameChangedRequest.done(function(data) {
+        window.location.reload();
+    });
+
+    nameChangeRequest.fail(function(data) {
+        alert('Could not edit user name');
+    });
 };
