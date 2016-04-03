@@ -33,6 +33,16 @@ Given a user id, it returns the following object:
             ...
         }
     ]
+    reminders: [
+        {
+            eid: // id of the event
+            time: // time of the event
+            name: // name of the event
+        },
+        {
+            ...
+        }
+    ]
 }
 
 The returned object will be empty - with no keys if a user with the
@@ -43,6 +53,7 @@ require 'database_connection.php';
 require 'utility.php';
 
 $id = $_GET['id'];
+$cur_time = $_GET['cur_time'];
 
 // This will store the final result
 $json_result = array();
@@ -146,6 +157,33 @@ for ($i = 0; $i < $num_rows; $i++) {
     array_push($invites, $invite);
 }
 $json_result['invites'] = $invites;
+
+// Get the reminders for the user:
+$query = "
+SELECT DISTINCT Reminder.Eid, Reminder.Time, Event.Name
+FROM  Reminder, Event
+WHERE Reminder.Time < $cur_time AND Reminder.Uid = $id AND Reminder.Eid = Event.Eid
+ORDER BY Reminder.Time ASC";
+
+$result = mysqli_query($link, $query);
+if ($result === FALSE) {
+    printf("query could not be executed.\n");
+    exit(1);
+}
+
+$all_rows = $result->fetch_all();
+
+$events = array();
+$num_rows = count($all_rows);
+
+for ($i = 0; $i < $num_rows; $i++) {
+    $event = array();
+    $event['eid'] = $all_rows[$i][0];
+    $event['time'] = $all_rows[$i][1];
+    $event['name'] = $all_rows[$i][2];
+    array_push($events, $event);
+}
+$json_result['reminders'] = $events;
 
 output_json($json_result);
 

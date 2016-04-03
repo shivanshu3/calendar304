@@ -94,10 +94,10 @@ CREATE TABLE Event
 array_push($table_create_queries, '
 CREATE TABLE Reminder
 (
-    Rid INT,
+    Rid INT AUTO_INCREMENT,
     Uid INT,
     Type INT,
-    Time INT,
+    Time CHAR(60),
     Eid INT,
     PRIMARY KEY (Rid, Uid),
     FOREIGN KEY (Eid)
