@@ -118,7 +118,10 @@ CalsUiManager.prototype.populateUserDetails = function() {
     var _this = this;
     var user_id = window.localStorage.user_id;
 
-    var userDetailsRequest = $.get('../api/user_details.php', {id: user_id, cur_time: Date.now()});
+    var userDetailsRequest = $.get('../api/user_details.php', {
+        id: user_id,
+        cur_time: Date.now()
+    });
 
     userDetailsRequest.done(function(data) {
         _this.userDetails = data;

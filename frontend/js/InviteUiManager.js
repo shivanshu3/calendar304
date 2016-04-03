@@ -146,7 +146,8 @@ InviteUiManager.prototype.showEventDetails = function() {
 InviteUiManager.prototype.populateCalendars = function() {
     var _this = this;
     var calendarsRequest = $.get('../api/user_details.php', {
-        id: window.localStorage.user_id
+        id: window.localStorage.user_id,
+        cur_time: Date.now()
     });
 
     calendarsRequest.done(function(data) {
