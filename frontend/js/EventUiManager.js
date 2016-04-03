@@ -413,11 +413,13 @@ EventUiManager.prototype.showEventDetails = function() {
 
     // Show the proportion of users attending versus invited
     var numAttending = $('#num_attending_invited');
-    var numString = this.eventDetails.num_invited + " invited, " + this.eventDetails.num_attending + " attending";
+    var numString = this.eventDetails.num_invited + " invited, " +
+        this.eventDetails.num_attending + " attending";
     if (this.eventDetails.num_pending > 0) {
-        numString = numString + ", " + this.eventDetails.num_pending + " pending";
+        numString = numString + ", " + this.eventDetails.num_pending +
+            " pending";
     }
-    numAttending.val(numString);
+    numAttending.text(numString);
 
     // Get the attending users
     var usersList = $('#attending_users_div ul');
