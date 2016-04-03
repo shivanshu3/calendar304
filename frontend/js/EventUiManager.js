@@ -236,8 +236,17 @@ EventUiManager.prototype.saveReminderButtonClicked = function() {
     var eid = window.localStorage.event_id;
     var setReminderRequest;
 
+    if(rTime === ""){
+        return;
+    }
+
     if(rid !== "undefined"){
-       setReminderRequest = $.get('../api/reminder_edit.php', {r_id: rid, user_id: uid});
+       setReminderRequest = $.get('../api/reminder_edit.php', {
+           reminder_id: rid,
+           user_id: uid,
+           type: 0,
+           time: rTime
+       });
     }else{
         setReminderRequest = $.get('../api/reminder_create.php', {
             user_id: uid,
@@ -272,6 +281,7 @@ EventUiManager.prototype.populateReminderDetails = function() {
     });
 
     eventDetailsRequest.done(function(data) {
+        window.localStorage.reminder_id = data.rid;
         var time = data.time;
         var dateBox = $('#reminder_date');
         dateBox.val(time);
