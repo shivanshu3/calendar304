@@ -161,7 +161,8 @@ $json_result['invites'] = $invites;
 $query = "
 SELECT DISTINCT Reminder.Eid, Reminder.Time, Event.Name
 FROM  Reminder, Event
-WHERE Reminder.Uid = $id AND Reminder.Eid = Event.Eid";
+WHERE Reminder.Uid = $id AND Reminder.Eid = Event.Eid
+ORDER BY Reminder.Time ASC";
 
 $result = mysqli_query($link, $query);
 if ($result === FALSE) {

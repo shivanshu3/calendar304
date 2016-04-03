@@ -232,12 +232,24 @@ EventUiManager.prototype.saveReminderButtonClicked = function() {
 
     var rid = window.localStorage.reminder_id;
     var uid = window.localStorage.user_id;
-    var rTime = $('#reminder_date').val();
+    var rValue = $('#reminder_date').val();
     var eid = window.localStorage.event_id;
     var setReminderRequest;
+    var y = window.localStorage.year;
+    var m = window.localStorage.month;
+    var d = window.localStorage.date;
+    var reminderDate = new Date(y,m,d);
 
-    if(rTime === ""){
+    if(rValue === ""){
         return;
+    }else if(rValue === "1d"){
+        reminderDate.setDate(reminderDate.getDate() - 1);
+    }else if(rValue === "2d") {
+        reminderDate.setDate(reminderDate.getDate() - 2);
+    }else if(rValue === "1w") {
+        reminderDate.setDate(reminderDate.getDate() - 7);
+    }else if(rValue === "1m") {
+        reminderDate.setMonth(reminderDate.getMonth() - 1);
     }
 
     if(rid !== "undefined"){
@@ -245,13 +257,13 @@ EventUiManager.prototype.saveReminderButtonClicked = function() {
            reminder_id: rid,
            user_id: uid,
            type: 0,
-           time: rTime
+           time: reminderDate.getTime()
        });
     }else{
         setReminderRequest = $.get('../api/reminder_create.php', {
             user_id: uid,
             type: 0,
-            time: rTime,
+            time: reminderDate.getTime(),
             event_id: eid
         });
      }
@@ -282,9 +294,31 @@ EventUiManager.prototype.populateReminderDetails = function() {
 
     eventDetailsRequest.done(function(data) {
         window.localStorage.reminder_id = data.rid;
-        var time = data.time;
+        var y = window.localStorage.year;
+        var m = window.localStorage.month;
+        var d = window.localStorage.date;
+        var currentDate = new Date(y,m,d);
+        var reminderDate = new Date(parseInt(data.time));
+
+        // Caclualte difference in days
+        var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+        var utc1 = Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+        var utc2 = Date.UTC(reminderDate.getFullYear(), reminderDate.getMonth(), reminderDate.getDate());
+        var diff = Math.abs(Math.floor((utc2 - utc1) / (1000*60*60*24)));
+
         var dateBox = $('#reminder_date');
-        dateBox.val(time);
+
+        if(diff === 1){
+            dateBox.val("1d");
+        }else if(diff === 2){
+            dateBox.val("2d");
+        }else if(diff === 7){
+            dateBox.val("1w");
+        }else if(diff >= 29){
+            dateBox.val("1m");
+        }else{
+            dateBox.val("");
+        }
     });
 
     eventDetailsRequest.fail(function(data) {
@@ -386,7 +420,7 @@ EventUiManager.prototype.populateRooms = function() {
  * which is in the event.
  */
 EventUiManager.prototype.showRooms = function() {
-    var roomsDropdown = $('#basic_details_div select');
+    var roomsDropdown = $('#room_div select');
     roomsDropdown.empty();
 
     for (var i = 0; i < this.rooms.length; i++) {

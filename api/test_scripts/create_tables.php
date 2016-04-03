@@ -97,7 +97,7 @@ CREATE TABLE Reminder
     Rid INT AUTO_INCREMENT,
     Uid INT,
     Type INT,
-    Time CHAR(50),
+    Time CHAR(60),
     Eid INT,
     PRIMARY KEY (Rid, Uid),
     FOREIGN KEY (Eid)
