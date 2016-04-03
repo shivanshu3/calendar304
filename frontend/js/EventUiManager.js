@@ -263,7 +263,7 @@ EventUiManager.prototype.saveReminderButtonClicked = function() {
     var y = window.localStorage.year;
     var m = window.localStorage.month;
     var d = window.localStorage.date;
-    var reminderDate = new Date(y,m,d);
+    var reminderDate = new Date(y,m-1,d);
 
     if(rValue === ""){
         return;
@@ -322,7 +322,7 @@ EventUiManager.prototype.populateReminderDetails = function() {
         var y = window.localStorage.year;
         var m = window.localStorage.month;
         var d = window.localStorage.date;
-        var currentDate = new Date(y,m,d);
+        var currentDate = new Date(y,m-1,d);
         var reminderDate = new Date(parseInt(data.time));
 
         // Caclualte difference in days
