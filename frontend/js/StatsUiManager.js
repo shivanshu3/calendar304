@@ -66,5 +66,21 @@ StatsUiManager.prototype.nestedAggregationQuery = function() {
 };
 
 StatsUiManager.prototype.divisionQuery = function() {
+    var divisionRequest = $.get('../api/users_attending_all_events.php');
+
+    divisionRequest.done(function(data) {
+        var resultList = $('#division_div ul');
+        resultList.empty();
+
+        for (var i = 0; i < data.uids.length; i++) {
+            var user = data.uids[i];
+            var userItem = $('<li>' + user.uid + '</li>');
+            resultList.append(userItem);
+        }
+    });
+
+    divisionRequest.fail(function(data) {
+        alert('Could not complete aggregation query');
+    });
 };
 
