@@ -100,12 +100,11 @@ EventUiManager.prototype.saveChangesButtonClicked = function() {
     var duration = durationBox.val();
     var roomNo = roomNoDropdown.val();
 
-    var year = window.localStorage.year;
-    var month = window.localStorage.month;
-    var date = window.localStorage.date;
-
-    var hours = startTimeString.split(':')[0];
-    var minutes = startTimeString.split(':')[1];
+    var year = startTimeString.split('T')[0].split('-')[0];
+    var month = startTimeString.split('T')[0].split('-')[1];
+    var date = startTimeString.split('T')[0].split('-')[2];
+    var hours = startTimeString.split('T')[1].split(':')[0];
+    var minutes = startTimeString.split('T')[1].split(':')[1]
     var startTime = Math.round(new Date(year, month-1, date, hours,
         minutes, 0, 0).getTime() / 1000);
 
