@@ -212,6 +212,11 @@ CalsUiManager.prototype.showUserDetails = function() {
             });
         })();
         remindersList.append(reminderBullet);
+
+        // If the type of the reminder is 1, display an alert
+        if(reminder.type === "1"){
+            window.alert("Reminder you have the following event coming up:\n\n" + reminder.name + "\n\n");
+        }
     }
 
     // Show user's name and ID:

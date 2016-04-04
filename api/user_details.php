@@ -39,6 +39,7 @@ object:
             eid: // id of the event
             time: // time of the event
             name: // name of the event
+            type: // type of reminder
         },
         {
             ...
@@ -161,7 +162,7 @@ $json_result['invites'] = $invites;
 
 // Get the reminders for the user:
 $query = "
-SELECT DISTINCT Reminder.Eid, Reminder.Time, Event.Name
+SELECT DISTINCT Reminder.Eid, Reminder.Time, Event.Name, Reminder.Type
 FROM  Reminder, Event
 WHERE Reminder.Time < $cur_time AND Reminder.Uid = $id AND Reminder.Eid = Event.Eid
 ORDER BY Reminder.Time ASC";
@@ -182,6 +183,7 @@ for ($i = 0; $i < $num_rows; $i++) {
     $event['eid'] = $all_rows[$i][0];
     $event['time'] = $all_rows[$i][1];
     $event['name'] = $all_rows[$i][2];
+    $event['type'] = $all_rows[$i][3];
     array_push($events, $event);
 }
 $json_result['reminders'] = $events;

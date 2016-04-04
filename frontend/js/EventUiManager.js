@@ -266,6 +266,7 @@ EventUiManager.prototype.saveReminderButtonClicked = function() {
     var reminderDate = new Date(y,m-1,d);
 
     if(rValue === ""){
+        window.location.reload();
         return;
     }else if(rValue === "1d"){
         reminderDate.setDate(reminderDate.getDate() - 1);
@@ -277,17 +278,31 @@ EventUiManager.prototype.saveReminderButtonClicked = function() {
         reminderDate.setMonth(reminderDate.getMonth() - 1);
     }
 
+    // Sql check constraint done here
+    if(reminderDate.getTime() < 0){
+        window.location.reload();
+        return;
+    }
+
+    // Get Type of reminder and do error checking
+    // Sql check constraint done here
+    var type = $('input[name=reminder_type]:checked').attr('value');
+    if(type !== "0" && type !== "1"){
+        window.location.reload();
+        return;
+    }
+
     if(rid !== "undefined"){
        setReminderRequest = $.get('../api/reminder_edit.php', {
            reminder_id: rid,
            user_id: uid,
-           type: 0,
+           type: type,
            time: reminderDate.getTime()
        });
     }else{
         setReminderRequest = $.get('../api/reminder_create.php', {
             user_id: uid,
-            type: 0,
+            type: type,
             time: reminderDate.getTime(),
             event_id: eid
         });
@@ -343,6 +358,13 @@ EventUiManager.prototype.populateReminderDetails = function() {
             dateBox.val("1m");
         }else{
             dateBox.val("");
+        }
+
+        //Set the radio buttons for type
+        if (data.type == "0") {
+            $('input[name=reminder_type][value=0]').prop('checked', true);
+        } else if (data.type == "1"){
+            $('input[name=reminder_type][value=1]').prop('checked', true);
         }
     });
 
