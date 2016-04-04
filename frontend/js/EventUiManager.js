@@ -404,13 +404,22 @@ EventUiManager.prototype.showEventDetails = function() {
     var roomNoDropdown = $('#event_room');
 
     var startTimeObject = new Date(Number(this.eventDetails.start_time * 1000));
+    var startTimeYear = startTimeObject.getFullYear();
+    var startTimeMonth = startTimeObject.getMonth() + 1;
+    var startTimeDate = startTimeObject.getDate();
     var startTimeHours = startTimeObject.getHours();
     var startTimeMinutes = startTimeObject.getMinutes();
+    var startTimeMonthString = (startTimeMonth < 10) ?
+        ('0' + startTimeMonth.toString()) : startTimeMonth.toString();
+    var startTimeDateString = (startTimeDate < 10) ?
+        ('0' + startTimeDate.toString()) : startTimeDate.toString();
     var startTimeHoursString = (startTimeHours < 10) ?
         ('0' + startTimeHours.toString()) : startTimeHours.toString();
     var startTimeMinutesString = (startTimeMinutes < 10) ?
         ('0' + startTimeMinutes.toString()) : startTimeMinutes.toString();
-    var startTimeString = startTimeHoursString + ':' + startTimeMinutesString;
+    var startTimeString = startTimeYear + '-' + startTimeMonthString + '-' +
+        startTimeDateString + 'T' + startTimeHoursString + ':' +
+        startTimeMinutesString;
 
     nameBox.val(this.eventDetails.name);
     startTimeBox.val(startTimeString);
