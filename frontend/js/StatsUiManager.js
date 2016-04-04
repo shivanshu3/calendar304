@@ -37,6 +37,7 @@ StatsUiManager.prototype.aggregationQuery = function() {
     var aggregationRequest = $.get('../api/events_per_user.php');
 
     aggregationRequest.done(function(data) {
+        alert('Got ' + data.aggregate.length + ' results');
         var resultList = $('#aggregation_div ul');
         resultList.empty();
 
@@ -57,7 +58,7 @@ StatsUiManager.prototype.nestedAggregationQuery = function() {
 
     nestedRequest.done(function(data) {
         var resultField = $('#nested_result');
-        resultField.text('user: ' + data.uid + ', average: ' + data.avg);
+        resultField.text('user: ' + data.uid + ', average: ' + data.avg_duration);
     });
 
     nestedRequest.fail(function(data) {
