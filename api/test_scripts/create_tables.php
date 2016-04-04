@@ -68,7 +68,9 @@ CREATE TABLE Location
 (
     RoomNo INT,
     MaxOcc INT,
-    PRIMARY KEY (RoomNo)
+    PRIMARY KEY (RoomNo),
+    CHECK (MaxOcc > 0),
+    CHECK (RoomNo > 0)
 );
 ');
 
@@ -91,6 +93,7 @@ CREATE TABLE Event
 );
 ');
 
+// Check constraints here are done in code
 array_push($table_create_queries, '
 CREATE TABLE Reminder
 (
@@ -106,7 +109,9 @@ CREATE TABLE Reminder
     FOREIGN KEY (Uid)
         REFERENCES User(Uid)
         ON DELETE CASCADE,
-    UNIQUE (Eid, Time, Type)
+    UNIQUE (Eid, Time, Type),
+    CHECK (Type >=0 AND Type <= 1),
+    CHECK (Time > 0)
 );
 ');
 
