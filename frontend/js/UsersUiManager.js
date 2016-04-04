@@ -33,6 +33,10 @@ UsersUiManager.prototype.init = function() {
     signUpButton.click(function() {
         _this.signUpButtonClicked();
     });
+    statsButton = $('#stats_box button');
+    statsButton.click(function() {
+        _this.statsButtonClicked();
+    });
 };
 
 /**
@@ -83,6 +87,13 @@ UsersUiManager.prototype.signUpButtonClicked = function() {
     signUpRequest.fail(function(data) {
         alert('Sign Up Failed!');
     });
+};
+
+/**
+ * Runs when stats button is clicked.
+ */
+UsersUiManager.prototype.statsButtonClicked = function() {
+    Utility.redirectStats(false);
 };
 
 /**

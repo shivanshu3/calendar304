@@ -248,3 +248,11 @@ Utility.redirectEvent = function(showMessage) {
 Utility.redirectInvite = function(showMessage) {
     window.location.href = '/calendar304/frontend/invite.html';
 };
+
+/**
+ * Redirects to the stats page.
+ * showMessage argument is not implemented right now.
+ */
+Utility.redirectStats = function(showMessage) {
+    window.location.href = '/calendar304/frontend/stats.html';
+};
