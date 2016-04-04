@@ -200,8 +200,8 @@ CalsUiManager.prototype.showUserDetails = function() {
 
     for (var i = 0; i < this.userDetails.reminders.length; i++) {
         var reminder = this.userDetails.reminders[i];
-        var reminderBullet = $('<li> <a href = "javascript:void(0)">' +
-                reminder.name + ' on ' + new Date(parseInt(reminder.time)).toDateString() + '</a> </li>');
+        var reminderBullet = $('<li> Reminder for <a href = "javascript:void(0)">' +
+                reminder.name +'</a> activated on ' + new Date(parseInt(reminder.time)).toDateString() + '</li> ');
         // Register the click callback in a self executing anonymous
         // function because we want the event id to be stored in this
         // function's closure.
