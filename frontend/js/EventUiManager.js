@@ -100,12 +100,11 @@ EventUiManager.prototype.saveChangesButtonClicked = function() {
     var duration = durationBox.val();
     var roomNo = roomNoDropdown.val();
 
-    var year = window.localStorage.year;
-    var month = window.localStorage.month;
-    var date = window.localStorage.date;
-
-    var hours = startTimeString.split(':')[0];
-    var minutes = startTimeString.split(':')[1];
+    var year = startTimeString.split('T')[0].split('-')[0];
+    var month = startTimeString.split('T')[0].split('-')[1];
+    var date = startTimeString.split('T')[0].split('-')[2];
+    var hours = startTimeString.split('T')[1].split(':')[0];
+    var minutes = startTimeString.split('T')[1].split(':')[1]
     var startTime = Math.round(new Date(year, month-1, date, hours,
         minutes, 0, 0).getTime() / 1000);
 
@@ -404,13 +403,22 @@ EventUiManager.prototype.showEventDetails = function() {
     var roomNoDropdown = $('#event_room');
 
     var startTimeObject = new Date(Number(this.eventDetails.start_time * 1000));
+    var startTimeYear = startTimeObject.getFullYear();
+    var startTimeMonth = startTimeObject.getMonth() + 1;
+    var startTimeDate = startTimeObject.getDate();
     var startTimeHours = startTimeObject.getHours();
     var startTimeMinutes = startTimeObject.getMinutes();
+    var startTimeMonthString = (startTimeMonth < 10) ?
+        ('0' + startTimeMonth.toString()) : startTimeMonth.toString();
+    var startTimeDateString = (startTimeDate < 10) ?
+        ('0' + startTimeDate.toString()) : startTimeDate.toString();
     var startTimeHoursString = (startTimeHours < 10) ?
         ('0' + startTimeHours.toString()) : startTimeHours.toString();
     var startTimeMinutesString = (startTimeMinutes < 10) ?
         ('0' + startTimeMinutes.toString()) : startTimeMinutes.toString();
-    var startTimeString = startTimeHoursString + ':' + startTimeMinutesString;
+    var startTimeString = startTimeYear + '-' + startTimeMonthString + '-' +
+        startTimeDateString + 'T' + startTimeHoursString + ':' +
+        startTimeMinutesString;
 
     nameBox.val(this.eventDetails.name);
     startTimeBox.val(startTimeString);
