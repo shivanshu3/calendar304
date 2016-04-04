@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Calendar 304</title>
+        <link rel="stylesheet" type="text/css" href="css/stats_style.css">
+        <script type="text/javascript" src="js/Utility.js"></script>
+        <script type="text/javascript" src="js/StatsUiManager.js"></script>
+        <script type="text/javascript" src="libraries/jquery-2.2.1.min.js">
+        </script>
+        <script type="text/javascript">
+            $(function() {
+                var uiManager = StatsUiManager.getInstance();
+                uiManager.init();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="main_app_div">
+            <h1>Calendar 304</h1>
+            <div>
+                Navigation :
+                <a href="/calendar304/frontend/index.html">Sign In</a>
+            </div>
+            <div>
+                <h2>Stats:</h2>
+                <button type="button" id="refresh_button">Refresh</button>
+            </div>
+            <div id="aggregatoin_div">
+                <h2>Aggregation:</h2>
+                <span>Number of events per user:</span>
+                <ul></ul>
+            </div>
+            <div id="nested_aggregatoin_div">
+                <h2>Nested Aggregation:</h2>
+                <span>User with largest average event duration: </span>
+                <span id="nested_result">foo</span>
+                <ul></ul>
+            </div>
+            <div id="division_div">
+                <h2>Division:</h2>
+                <span></span>
+                <ul></ul>
+            </div>
+        </div> <!-- main_app_div  -->
+    </body>
+</html>
